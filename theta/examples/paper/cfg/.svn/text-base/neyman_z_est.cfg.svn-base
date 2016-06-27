@@ -1,0 +1,56 @@
+@include "exmodel.cfg"
+
+hypotest = {
+   type = "deltanll_hypotest";
+   name = "hypotest";
+   minimizer = { type = "root_minuit"; };
+   background-only-distribution = {
+        type = "product_distribution";
+        distributions = ("@mu_s-zero", "@mu_b-flat");
+   };
+   
+   signal-plus-background-distribution = {
+       type = "product_distribution";
+       distributions = ("@mu_s-flat", "@mu_b-flat");
+   };
+};
+
+mu_b-fixed = {
+   type = "delta_distribution";
+   mu_b = "@mu_b-flat.mu_b.fix-sample-value";
+};
+
+mu_s-zero = {
+   type = "delta_distribution";
+   mu_s = 0.0;
+};
+
+mu_s-sample = {
+   type = "flat_distribution";
+   mu_s = {
+      range = [0.0, 30.0];
+   };
+};
+
+main = {
+   data_source = {
+      type = "model_source";
+      name = "data_source";
+      model = "@example_model";
+      override-parameter-distribution = {
+          type = "product_distribution";
+          distributions = ("@mu_b-fixed", "@mu_s-sample");
+      };
+   };
+   model = "@example_model";
+   producers = ("@hypotest");
+   n-events = 200000;
+   output_database = {
+      type = "sqlite_database";
+      filename = "results/neyman_z_est.db";
+   };
+};
+
+options = {
+  plugin_files = ("../../lib/core-plugins.so", "../../lib/root.so");
+};

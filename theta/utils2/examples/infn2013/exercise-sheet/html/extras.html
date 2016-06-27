@@ -1,0 +1,113 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Extras &mdash; Statistic Exercises 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Statistic Exercises 1.0 documentation" href="index.html" />
+    <link rel="prev" title="Exercise 3: Bayesian Inference" href="ex3.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ex3.html" title="Exercise 3: Bayesian Inference"
+             accesskey="P">previous</a></li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="extras">
+<h1>Extras<a class="headerlink" href="#extras" title="Permalink to this headline">¶</a></h1>
+<p>This page contains some extra questions for the exercises and some ideas for future exercises. They are <strong>not</strong> part of
+the usual exercise and do not have any solutions provided.</p>
+<p>In <strong>exercise 1.d.</strong>, you can plot also the test statistic distribution from theta using <tt class="docutils literal"><span class="pre">plot_histogram</span></tt>.</p>
+<p>In <strong>exercise 2.a.</strong>, implement the Neyman construction using the normal approximation that n is distributed around <img class="math" src="_images/math/8136a7ef6a03334a7246df9097e5bcc31ba33fd2.png" alt="b"/> with width <img class="math" src="_images/math/d49dd169d6e5887dab22e0a66cbd5c25e431d1d0.png" alt="\sqrt{b}"/>. Plot these
+normal distributions (e.g. with <tt class="docutils literal"><span class="pre">plot_xy</span></tt>). This normal approximation can be useful to intuitively understand some behavior of upper limits which is also present in more
+complicated cases, e.g. the effect that adding a &#8220;large&#8221; uncertainty on the signal acceptance (such as 20%) usually changes the limit only very little.</p>
+<p>For <strong>exercise 3.c.</strong>, you can</p>
+<blockquote>
+<div><ul class="simple">
+<li>calculate the limit for the shape model</li>
+<li>in analogy to <tt class="docutils literal"><span class="pre">get95up</span></tt>, implement <tt class="docutils literal"><span class="pre">get95low</span></tt> for the lower limit. Note that by citing an interval with the interval ends at <tt class="docutils literal"><span class="pre">get95low</span></tt>/<tt class="docutils literal"><span class="pre">get95up</span></tt> you constructed a 90% C.L. Bayesian &#8220;central&#8221; interval.</li>
+</ul>
+</div></blockquote>
+<p>For <strong>exercise 3.</strong>, make <strong>coverage studies</strong>, i.e. determine frequentist properties of the Bayesian intervals for the counting experiment with fixed b by:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>generating toy data according to some fixed s (use the methods from exercise 1. for that)</li>
+<li>on each toy data, calculate the 95% C.L. upper limit</li>
+<li>count the fraction of toys in which the true value of s is lower than the derived limit; this is the <em>coverage</em></li>
+</ol>
+</div></blockquote>
+<p>Repeating this for different values of s, you can make a &#8220;coverage vs. s&#8221; plot.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ex3.html"
+                        title="previous chapter">Exercise 3: Bayesian Inference</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ex3.html" title="Exercise 3: Bayesian Inference"
+             >previous</a></li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Jochen Ott.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

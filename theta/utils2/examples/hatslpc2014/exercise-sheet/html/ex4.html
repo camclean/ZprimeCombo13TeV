@@ -1,0 +1,205 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Exercise 4: Real Analysis (theta) &mdash; Statistic Exercises 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Statistic Exercises 1.0 documentation" href="index.html" />
+    <link rel="next" title="Bonus Questions" href="extras.html" />
+    <link rel="prev" title="Exercise 3: Bayesian Inference" href="ex3.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="extras.html" title="Bonus Questions"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="ex3.html" title="Exercise 3: Bayesian Inference"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="exercise-4-real-analysis-theta">
+<span id="ex4"></span><h1>Exercise 4: Real Analysis (theta)<a class="headerlink" href="#exercise-4-real-analysis-theta" title="Permalink to this headline">¶</a></h1>
+<p>This exercise uses a real analysis as example. It is a search for a resonance Z&#8217; decaying to ttbar in the muon+jets channel.
+The considered backgrounds are standard-model ttbar production (called <tt class="docutils literal"><span class="pre">ttbar</span></tt> in the histograms),
+W+jets (<tt class="docutils literal"><span class="pre">wjets</span></tt>), QCD multijet (<tt class="docutils literal"><span class="pre">qcd</span></tt>), Z+jets (<tt class="docutils literal"><span class="pre">zjets</span></tt>), and single-top (<tt class="docutils literal"><span class="pre">singletop</span></tt>). The analysis uses two non-overlapping
+channels: A QCD-enriched region in the low-<img class="math" src="_images/math/7bde9e693a45a4802da540ea8b171da9a4cc018e.png" alt="H_T^{\rm lep}"/> region (<tt class="docutils literal"><span class="pre">mu_htlep</span></tt>; <img class="math" src="_images/math/7bde9e693a45a4802da540ea8b171da9a4cc018e.png" alt="H_T^{\rm lep}"/> is the sum of missing transverse energy and the muon transverse momentum)
+and the observable sensitive to signal: The invariant ttbar mass in the high-<img class="math" src="_images/math/7bde9e693a45a4802da540ea8b171da9a4cc018e.png" alt="H_T^{\rm lep}"/> region (<tt class="docutils literal"><span class="pre">mu_mtt</span></tt>), where only little of the difficult-to-model QCD background is left.
+The signal is called <tt class="docutils literal"><span class="pre">zpXXXX</span></tt> where <tt class="docutils literal"><span class="pre">XXXX</span></tt> is the mass of the Z&#8217; resonance.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Originally, the analysis was done in two steps: first estimating QCD by fitting the background yields in the <tt class="docutils literal"><span class="pre">mu_htlep</span></tt> channel and then use the estimated
+values in the <tt class="docutils literal"><span class="pre">mu_mtt</span></tt> channel only for the limit setting.
+Using the two channels simultaneously, however, allows estimating the background yields in the signal region without neglecting a potential signal
+contamination of the QCD-enriched sideband or correlations between the estimated background yields.</p>
+<p class="last">This is an example of a more general pattern: It can often be useful to enlarge the statistical model instead of dividing it in several steps, because in the latter case, it
+can be difficult to propagate the result of the intermediate steps consistently (e.g. the covariance matrix for the background estimates or the assumption that the sideband was signal-free).</p>
+</div>
+</div></blockquote>
+<div class="section" id="a-building-and-inspecting-models">
+<h2>4.a. Building and Inspecting Models<a class="headerlink" href="#a-building-and-inspecting-models" title="Permalink to this headline">¶</a></h2>
+<p>Using root, have a look at the file <tt class="docutils literal"><span class="pre">ex4input.root</span></tt>. It contains the histograms of the analysis just described, where the
+histograms follow the naming convention <tt class="docutils literal"><span class="pre">channel__process</span></tt> (for the nominal templates)
+or <tt class="docutils literal"><span class="pre">channel__process__systematics__direction</span></tt> (for the systematics treated by template morphing). Real data is contained in the histogram with process name <tt class="docutils literal"><span class="pre">DATA</span></tt>. Refer to the
+<a class="reference external" href="http://www-ekp.physik.uni-karlsruhe.de/~ott/theta/theta-auto/model.html#building-models">build_model documentation</a> for details on the naming convention.</p>
+<p>The <tt class="docutils literal"><span class="pre">get_model</span></tt> method in <tt class="docutils literal"><span class="pre">ex4.py</span></tt> constructs a statistical model that uses template morphing for all
+systematics in the root file (which are assumed to be the +-1sigma deviations); theta-auto detects the naming convention automatically.
+In addition the method adds rate-only systematics via the <tt class="docutils literal"><span class="pre">model.add_lognormal_uncertainty</span></tt> method, which adds a factor exp(lambda*theta) for the templates,
+as discussed in the lecture.</p>
+<p>Comment out the code in <tt class="docutils literal"><span class="pre">ex4.py</span></tt> commented with 4.a. and run it though <tt class="docutils literal"><span class="pre">theta-auto.py</span></tt>. This will create a directory <tt class="docutils literal"><span class="pre">htmlout</span></tt> which contains
+a summary page (<tt class="docutils literal"><span class="pre">index.html</span></tt>) of the statistical model. Open it in a browser and go through the various sections to see what the rates of the backgrounds (and signals) are
+in the channels, and what effect the various uncertainties have on the rate in the channels.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The output of <tt class="docutils literal"><span class="pre">model_summary</span></tt> is very useful to judge whether the model building worked as expected, as it allows to answer many questions such as: Have all channels been detected?
+Is the signal defined correctly? What is the rate impact of the uncertainties? (have all histograms been filled correctly, or are some uncertainties <tt class="docutils literal"><span class="pre">-100%</span></tt> or very asymmetric?) etc.</p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="b-maximum-likelihood-fits">
+<h2>4.b. Maximum likelihood fits<a class="headerlink" href="#b-maximum-likelihood-fits" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">model</span></tt> variable in the script contains one common background model and <em>several</em> different signal models (where only the mass of the Z&#8217; differs). For
+limit setting or p-value calculation, only one of those signal templates is used at a time. To control what is to be considered as the &#8220;signal&#8221;, theta-auto has
+the concept of &#8220;signal process groups&#8221;, refer to the <a class="reference external" href="http://www-ekp.physik.uni-karlsruhe.de/~ott/theta/theta-auto/model.html#specifying-what-is-signal">documentation</a> for details.
+What you need to know now: The default behavior is to use each signal process in turn; to make a background-only fit is done by passing the option <tt class="docutils literal"><span class="pre">signal_process_groups</span> <span class="pre">=</span> <span class="pre">{'bkgonly':</span> <span class="pre">[]}</span></tt>.</p>
+<p>Comment in the 4.b.i. part in <tt class="docutils literal"><span class="pre">ex4.py</span></tt> to make a maximum likelihood fit for each signal. The parameter corresponding to the
+signal cross section is called <tt class="docutils literal"><span class="pre">beta_signal</span></tt> which is a parameter &gt;=0 without prior (flat prior) used as a direct factor for the input templates <tt class="docutils literal"><span class="pre">zpXXXX</span></tt>.
+As the input templates in this case have been scaled to a cross section of 1pb, <tt class="docutils literal"><span class="pre">beta_signal</span></tt> has the meaning of the signal cross section measured in pb.</p>
+</div>
+<div class="section" id="c-asymptotic-z-value">
+<h2>4.c. Asymptotic Z-value<a class="headerlink" href="#c-asymptotic-z-value" title="Permalink to this headline">¶</a></h2>
+<p>Calculate the asymptotic Z value by commenting in the code for 4.c.i. This calculates the asymptotic Z-value based on Wilks&#8217; Theorem via the log-likelihood ratio (cf. lecture 1).</p>
+<p>To get the expected significance, one can make toys with a non-zero signal cross section (the expected cross section) and calculate the asymptotic Z-value for each toy. The code at 4.c.ii.
+does that using <tt class="docutils literal"><span class="pre">beta_signal=1</span></tt> as input (so a cross section of 1pb). What is the expected significance for the various masses?</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">theta restricts the value cross section value to <tt class="docutils literal"><span class="pre">beta_signal</span> <span class="pre">&gt;=</span> <span class="pre">0</span></tt>, as otherwise, negative Poisson means might occur. This leads to problems evaluating the negative
+log-likelihood function (which would be infinity in this case, which however cannot be dealt with by the minimizer). This restriction leads to Z values being truncated at 0.</p>
+</div>
+</div></blockquote>
+<p>Change the code from 4.c.ii. to get the Z value distribution for background-only (change <tt class="docutils literal"><span class="pre">input=&quot;toys:0.0&quot;</span></tt>). What do you expect as distribution for Z?</p>
+</div>
+<div class="section" id="d-limits">
+<h2>4.d. Limits<a class="headerlink" href="#d-limits" title="Permalink to this headline">¶</a></h2>
+<p>Comment out the code for calculating the asymptotic CLs limits. How do the expected and observed limits compare? Also look at the generated html output (in the htmlout directory) to see
+the result. Note that the asymptotic limits first make a fit to data and use the asymptotic likelihood properties around the best-fit value. Therefore, the &#8220;expected&#8221; limit for this
+method depends on the data (which might be counter-intuitive).</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Make sure to have at most one line writing the report; this line should be at the very end.</p>
+</div>
+</div></blockquote>
+<p>Also calculate Bayesian limits by commenting out the corresponding second code block.
+In this case, the expected limit is run by throwing 1000 background-only toys and calculating the limit for each of them. The median and central 68% (95%)
+define the expected line and the 1sigma (2sigma) bands.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Bayesian limit calculation involves running the Markov-Chain Monte-Carlo integration algorithms that evaluates the posterior a large number of times. Therefore, the
+Bayesian limits take a longer time to calculate compared to asymptotic CLs. The example code contains a configuration option that enables multi-threading; each thread calculates a subset of toys.</p>
+</div>
+</div></blockquote>
+<p>Question: How large is difference between the expected (observed) limits of the Bayesian and asymptotic CLs methods?</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You will notice that the observed limit between Bayesian and CLs agrees very well (typically better than 10%). For the expected limit, however, the difference can be larger. At least in part,
+this is due to the way the expected limits are calculated for the asymptotic method via bootstrapping and the frequentist re-interpretation, while for the expected Bayesian limits, all nuisance parameters
+are drawn from their priors, which is completely independent of the data. So this difference shows that the definition of &#8220;expected&#8221; limit is somewhat arbitrary.</p>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Exercise 4: Real Analysis (theta)</a><ul>
+<li><a class="reference internal" href="#a-building-and-inspecting-models">4.a. Building and Inspecting Models</a></li>
+<li><a class="reference internal" href="#b-maximum-likelihood-fits">4.b. Maximum likelihood fits</a></li>
+<li><a class="reference internal" href="#c-asymptotic-z-value">4.c. Asymptotic Z-value</a></li>
+<li><a class="reference internal" href="#d-limits">4.d. Limits</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ex3.html"
+                        title="previous chapter">Exercise 3: Bayesian Inference</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="extras.html"
+                        title="next chapter">Bonus Questions</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="extras.html" title="Bonus Questions"
+             >next</a></li>
+        <li class="right" >
+          <a href="ex3.html" title="Exercise 3: Bayesian Inference"
+             >previous</a> |</li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Jochen Ott.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

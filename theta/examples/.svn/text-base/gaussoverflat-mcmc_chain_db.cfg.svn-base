@@ -1,0 +1,30 @@
+@include "gaussoverflat-include.cfg"
+
+mcmc_chain = {
+    type = "mcmc_chain";
+    iterations = 50000;
+    output_database = {
+        type = "rootfile_database";
+        filename = "chains.root";
+    };
+};
+
+main = {
+   data_source = {
+      type = "model_source";
+      model = "@main.model";
+      name = "source";
+   };
+   model = "@gaussoverflat";
+   producers = ("@mcmc_chain");
+   n-events = 5;
+   output_database = {
+        type = "sqlite_database";
+        filename = "gaussoverflat-mcmc_histo.db";
+    };
+};
+
+options = {
+  plugin_files = ("$THETA_DIR/lib/core-plugins.so", "$THETA_DIR/lib/root.so");
+};
+

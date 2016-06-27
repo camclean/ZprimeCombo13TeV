@@ -1,0 +1,32 @@
+//example for the pseudodata_writer: this configuration will produce an output file which only contains the
+// toy data.
+// See gaussoverflat-write-use of how to configure a data_source to read in the toys produced here.
+//
+// This is useful to separate the toy generation step as completely as possible from the analysis step.
+// In some setup, this allows more easily to run different models for toy generation and analysis.
+@include "gaussoverflat-include.cfg"
+
+writer = {
+   type = "pseudodata_writer";
+   name = "writer";
+   write-data = true;
+};
+
+main = {
+   data_source = {
+      type = "model_source";
+      model = "@main.model";
+      name = "source";
+   };    
+   model = "@gaussoverflat";
+   producers = ("@writer");
+   n-events = 500;
+   output_database = {
+        type = "sqlite_database";
+        filename = "gaussoverflat-writer.db";
+    };
+};
+
+options = {
+  plugin_files = ("$THETA_DIR/lib/core-plugins.so");
+};

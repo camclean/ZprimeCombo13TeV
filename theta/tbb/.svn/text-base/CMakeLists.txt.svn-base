@@ -1,0 +1,5 @@
+file(GLOB plugin_sources *.cpp)
+add_library(tbbplugin MODULE ${plugin_sources})
+target_link_libraries(tbbplugin tbb)
+set_target_properties(tbbplugin PROPERTIES COMPILE_FLAGS "-std=c++0x")
+add_custom_command(TARGET tbbplugin POST_BUILD COMMAND mv ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libtbbplugin.so ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/tbb-plugins.so)

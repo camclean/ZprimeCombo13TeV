@@ -1,0 +1,32 @@
+The "build.sh" script creates the file "gridpack.tgz" which contains all binary files
+required to run theta in a minimal environment which does not have ROOT
+or other dependencies installed. This can be useful to run theta on a cluster or on the
+grid, hence the name "gridpack".
+
+Before running "build.sh", make sure you have set up all dependencies correctly (i.e.,
+theta runs for your configuration), including setting the $ROOTSYS environment variable,
+if you use the root plugin.
+
+If you unpack "gridpack.tgz", you have four directories:
+bin --- containing the main theta executable, "theta" (which is actually a script to do some setup)
+lib -- containing theta plugins and theta-internal dependencies
+extlib -- containing external shared dependencies (root, sqlite, boost, ...)
+etc -- some special files for ROOT
+
+Note that you have to care care of any additional dependencies like
+your own configuration files and maybe root input files required by these.
+Typically, one would create a single archive (say grid-runtime.tgz) containing 
+1. the configuration file (say, theta.cfg). Make sure that any paths in theta.cfg
+   (to plugins and templates.root) are relative so they can be resolved on the worker node
+2. required histogram input for 1. (say, templates.root)
+3. gridpack.tgz
+
+The script to be executed on the worker node could then be something as simple as
+# copy gridpack.tgz from known location to here (if not already in the sandbox)
+tar xzf gridpack.tgz
+bin/theta theta.cfg
+# copy theta output to some se
+
+In general, it is advisable to test your grid runtime with minimal environment variable settings
+(empty LD_LIBRARY_PATH and empty ROOTSYS) before submitting it.
+

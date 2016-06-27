@@ -1,0 +1,58 @@
+@include "gaussoverflat-include.cfg"
+
+delta-s-zero = {
+   type = "delta_distribution";
+   s = 0.0;
+};
+
+delta-s-exp = {
+   type = "delta_distribution";
+   s = 200.0;
+};
+
+mcmc_ratio = {
+    type = "mcmc_posterior_ratio";
+    name = "mcmc_ratio";
+    background-only-distribution = { type = "product_distribution"; distributions = ("@b-dist", "@delta-s-zero");};
+    signal-plus-background-distribution = { type = "product_distribution"; distributions = ("@b-dist", "@delta-s-exp"); };
+    iterations = 5000;
+};
+
+mcmc_ratio2 = {
+    type = "mcmc_posterior_ratio";
+    name = "mcmc_ratio2";
+    background-only-distribution = "@mcmc_ratio.background-only-distribution";
+    signal-plus-background-distribution = "@mcmc_ratio.signal-plus-background-distribution";
+    iterations = 5000;
+};
+
+minimized_ratio = {
+    type = "deltanll_hypotest";
+    name = "minimized_ratio";
+    minimizer = "@myminuit";
+    background-only-distribution = "@mcmc_ratio.background-only-distribution";
+    signal-plus-background-distribution = "@mcmc_ratio.signal-plus-background-distribution";
+};
+
+myminuit = {
+   type = "root_minuit";
+};
+
+main = {
+   data_source = {
+      type = "model_source";
+      model = "@main.model";
+      name = "source";
+   };
+   model = "@gaussoverflat";
+   producers = ("@mcmc_ratio", "@mcmc_ratio2", "@minimized_ratio");
+   n-events = 10;
+   output_database = {
+        type = "sqlite_database";
+        filename = "gaussoverflat-mcmc.db";
+    };
+};
+
+options = {
+  plugin_files = ("$THETA_DIR/lib/core-plugins.so", "$THETA_DIR/lib/root.so");
+};

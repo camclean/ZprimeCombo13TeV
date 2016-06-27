@@ -1,0 +1,575 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/public/theta/!svn/ver/406/tags/testing/plugins
+END
+sys_rate_function.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/public/theta/!svn/ver/254/tags/testing/plugins/sys_rate_function.cpp
+END
+constrain_ratio.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/public/theta/!svn/ver/254/tags/testing/plugins/constrain_ratio.cpp
+END
+mcmc_mean_prediction.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/public/theta/!svn/ver/325/tags/testing/plugins/mcmc_mean_prediction.cpp
+END
+mcmc_posterior_histo.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/public/theta/!svn/ver/325/tags/testing/plugins/mcmc_posterior_histo.hpp
+END
+asymptotic_cls.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/public/theta/!svn/ver/347/tags/testing/plugins/asymptotic_cls.hpp
+END
+cls_limits.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/public/theta/!svn/ver/391/tags/testing/plugins/cls_limits.cpp
+END
+exponential_hf.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/public/theta/!svn/ver/399/tags/testing/plugins/exponential_hf.cpp
+END
+simple_linear_histomorph.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/public/theta/!svn/ver/357/tags/testing/plugins/simple_linear_histomorph.hpp
+END
+multiplexing_database.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/public/theta/!svn/ver/210/tags/testing/plugins/multiplexing_database.cpp
+END
+exp_function.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/public/theta/!svn/ver/363/tags/testing/plugins/exp_function.hpp
+END
+mcmc_quantiles.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/public/theta/!svn/ver/325/tags/testing/plugins/mcmc_quantiles.hpp
+END
+interpolating-histogram.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/public/theta/!svn/ver/357/tags/testing/plugins/interpolating-histogram.cpp
+END
+replay_toys.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/public/theta/!svn/ver/346/tags/testing/plugins/replay_toys.cpp
+END
+blackhole_database.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/public/theta/!svn/ver/210/tags/testing/plugins/blackhole_database.hpp
+END
+newton-utils.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/public/theta/!svn/ver/363/tags/testing/plugins/newton-utils.hpp
+END
+nl_one_over_sqrt.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/public/theta/!svn/ver/254/tags/testing/plugins/nl_one_over_sqrt.cpp
+END
+newton.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/public/theta/!svn/ver/404/tags/testing/plugins/newton.hpp
+END
+nll_der.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/public/theta/!svn/ver/348/tags/testing/plugins/nll_der.cpp
+END
+gamma_distribution.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/public/theta/!svn/ver/325/tags/testing/plugins/gamma_distribution.cpp
+END
+mcmc_posterior_ratio.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/public/theta/!svn/ver/325/tags/testing/plugins/mcmc_posterior_ratio.cpp
+END
+sqlite_database.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/public/theta/!svn/ver/402/tags/testing/plugins/sqlite_database.cpp
+END
+pseudodata_writer.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/public/theta/!svn/ver/288/tags/testing/plugins/pseudodata_writer.hpp
+END
+igauss.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/public/theta/!svn/ver/363/tags/testing/plugins/igauss.cpp
+END
+deltanll_intervals.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/public/theta/!svn/ver/325/tags/testing/plugins/deltanll_intervals.hpp
+END
+equidistant_deltas.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/public/theta/!svn/ver/254/tags/testing/plugins/equidistant_deltas.hpp
+END
+add_sources.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/public/theta/!svn/ver/277/tags/testing/plugins/add_sources.cpp
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/public/theta/!svn/ver/368/tags/testing/plugins/Makefile
+END
+mcmc-strategies.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/public/theta/!svn/ver/325/tags/testing/plugins/mcmc-strategies.hpp
+END
+add.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/public/theta/!svn/ver/224/tags/testing/plugins/add.hpp
+END
+deltanll_hypotest.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/public/theta/!svn/ver/348/tags/testing/plugins/deltanll_hypotest.cpp
+END
+convert_database.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/public/theta/!svn/ver/209/tags/testing/plugins/convert_database.cpp
+END
+textout_database.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/public/theta/!svn/ver/197/tags/testing/plugins/textout_database.hpp
+END
+histo_source.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/public/theta/!svn/ver/357/tags/testing/plugins/histo_source.cpp
+END
+mcmc_minimizer.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/public/theta/!svn/ver/325/tags/testing/plugins/mcmc_minimizer.hpp
+END
+minimizer_chain.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/public/theta/!svn/ver/325/tags/testing/plugins/minimizer_chain.hpp
+END
+direct_data_histo.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/public/theta/!svn/ver/253/tags/testing/plugins/direct_data_histo.hpp
+END
+nl_gauss.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/public/theta/!svn/ver/224/tags/testing/plugins/nl_gauss.hpp
+END
+sqlite_database_in.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/public/theta/!svn/ver/220/tags/testing/plugins/sqlite_database_in.hpp
+END
+linear-histo-morph.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/public/theta/!svn/ver/357/tags/testing/plugins/linear-histo-morph.cpp
+END
+mle.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/public/theta/!svn/ver/405/tags/testing/plugins/mle.hpp
+END
+vary_one.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/public/theta/!svn/ver/277/tags/testing/plugins/vary_one.cpp
+END
+multiply.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/public/theta/!svn/ver/363/tags/testing/plugins/multiply.hpp
+END
+reduced_nll.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/public/theta/!svn/ver/325/tags/testing/plugins/reduced_nll.hpp
+END
+mcmc_chain.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/public/theta/!svn/ver/325/tags/testing/plugins/mcmc_chain.hpp
+END
+core.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/public/theta/!svn/ver/363/tags/testing/plugins/core.cpp
+END
+bw_gauss.cxx
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/public/theta/!svn/ver/406/tags/testing/plugins/bw_gauss.cxx
+END
+mcmc_posterior_histo.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/public/theta/!svn/ver/325/tags/testing/plugins/mcmc_posterior_histo.cpp
+END
+asymptotic_cls.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/public/theta/!svn/ver/396/tags/testing/plugins/asymptotic_cls.cpp
+END
+nll_scan.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/public/theta/!svn/ver/325/tags/testing/plugins/nll_scan.hpp
+END
+simple_linear_histomorph.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/public/theta/!svn/ver/357/tags/testing/plugins/simple_linear_histomorph.cpp
+END
+exp_function.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/public/theta/!svn/ver/363/tags/testing/plugins/exp_function.cpp
+END
+cubiclinear_histomorph.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/public/theta/!svn/ver/364/tags/testing/plugins/cubiclinear_histomorph.hpp
+END
+constrain_ratio.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/public/theta/!svn/ver/204/tags/testing/plugins/constrain_ratio.hpp
+END
+sys_rate_function.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/public/theta/!svn/ver/204/tags/testing/plugins/sys_rate_function.hpp
+END
+mcmc_mean_prediction.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/public/theta/!svn/ver/325/tags/testing/plugins/mcmc_mean_prediction.hpp
+END
+mcmc_quantiles.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/public/theta/!svn/ver/348/tags/testing/plugins/mcmc_quantiles.cpp
+END
+cls_limits.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/public/theta/!svn/ver/329/tags/testing/plugins/cls_limits.hpp
+END
+newton-utils.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/public/theta/!svn/ver/363/tags/testing/plugins/newton-utils.cpp
+END
+exponential_hf.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/public/theta/!svn/ver/399/tags/testing/plugins/exponential_hf.hpp
+END
+blackhole_database.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/public/theta/!svn/ver/210/tags/testing/plugins/blackhole_database.cpp
+END
+multiplexing_database.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/public/theta/!svn/ver/210/tags/testing/plugins/multiplexing_database.hpp
+END
+newton.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/public/theta/!svn/ver/363/tags/testing/plugins/newton.cpp
+END
+replay_toys.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/public/theta/!svn/ver/346/tags/testing/plugins/replay_toys.hpp
+END
+interpolating-histogram.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/public/theta/!svn/ver/357/tags/testing/plugins/interpolating-histogram.hpp
+END
+nl_one_over_sqrt.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/public/theta/!svn/ver/204/tags/testing/plugins/nl_one_over_sqrt.hpp
+END
+nll_der.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/public/theta/!svn/ver/348/tags/testing/plugins/nll_der.hpp
+END
+pseudodata_writer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/public/theta/!svn/ver/288/tags/testing/plugins/pseudodata_writer.cpp
+END
+equidistant_deltas.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/public/theta/!svn/ver/254/tags/testing/plugins/equidistant_deltas.cpp
+END
+deltanll_intervals.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/public/theta/!svn/ver/404/tags/testing/plugins/deltanll_intervals.cpp
+END
+gamma_distribution.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/public/theta/!svn/ver/254/tags/testing/plugins/gamma_distribution.hpp
+END
+mcmc-strategies.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/public/theta/!svn/ver/356/tags/testing/plugins/mcmc-strategies.cpp
+END
+mcmc_posterior_ratio.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/public/theta/!svn/ver/325/tags/testing/plugins/mcmc_posterior_ratio.hpp
+END
+add.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/public/theta/!svn/ver/277/tags/testing/plugins/add.cpp
+END
+sqlite_database.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/public/theta/!svn/ver/341/tags/testing/plugins/sqlite_database.hpp
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/public/theta/!svn/ver/342/tags/testing/plugins/CMakeLists.txt
+END
+textout_database.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/public/theta/!svn/ver/325/tags/testing/plugins/textout_database.cpp
+END
+igauss.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/public/theta/!svn/ver/363/tags/testing/plugins/igauss.hpp
+END
+add_sources.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/public/theta/!svn/ver/253/tags/testing/plugins/add_sources.hpp
+END
+mcmc_minimizer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/public/theta/!svn/ver/325/tags/testing/plugins/mcmc_minimizer.cpp
+END
+deltanll_hypotest.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/public/theta/!svn/ver/325/tags/testing/plugins/deltanll_hypotest.hpp
+END
+minimizer_chain.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/public/theta/!svn/ver/325/tags/testing/plugins/minimizer_chain.cpp
+END
+convert_database.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/public/theta/!svn/ver/209/tags/testing/plugins/convert_database.hpp
+END
+direct_data_histo.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/public/theta/!svn/ver/277/tags/testing/plugins/direct_data_histo.cpp
+END
+histo_source.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/public/theta/!svn/ver/253/tags/testing/plugins/histo_source.hpp
+END
+nl_gauss.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/public/theta/!svn/ver/277/tags/testing/plugins/nl_gauss.cpp
+END
+sqlite_database_in.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/public/theta/!svn/ver/348/tags/testing/plugins/sqlite_database_in.cpp
+END
+mle.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/public/theta/!svn/ver/405/tags/testing/plugins/mle.cpp
+END
+multiply.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/public/theta/!svn/ver/363/tags/testing/plugins/multiply.cpp
+END
+mcmc_chain.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/public/theta/!svn/ver/325/tags/testing/plugins/mcmc_chain.cpp
+END
+linear-histo-morph.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/public/theta/!svn/ver/357/tags/testing/plugins/linear-histo-morph.hpp
+END
+vary_one.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/public/theta/!svn/ver/254/tags/testing/plugins/vary_one.hpp
+END
+nll_scan.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/public/theta/!svn/ver/348/tags/testing/plugins/nll_scan.cpp
+END
+cubiclinear_histomorph.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/public/theta/!svn/ver/364/tags/testing/plugins/cubiclinear_histomorph.cpp
+END
+neyman_belt.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/public/theta/!svn/ver/325/tags/testing/plugins/neyman_belt.cpp
+END
+core.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/public/theta/!svn/ver/363/tags/testing/plugins/core.hpp
+END

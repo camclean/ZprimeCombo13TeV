@@ -1,0 +1,79 @@
+.. _setup:
+
+***************
+Technical Setup
+***************
+
+The exercises make use of python and the `scipy library <http://scipy.org/>`_ and the `theta <http://theta-framework.org/>`_ program.
+
+To make the theta installation easier, it is recommended to setup CMSSW, such that theta can use dependencies from CMSSW.
+Setting up CMSSW, obtaining and compiling theta is then done with these commands:
+
+::
+
+ # 1. setup CMSSW
+ scram p CMSSW CMSSW_5_3_19
+ # setup environment variables
+ cd CMSSW_5_3_19
+ cmsenv
+
+ # 2. checkout and compile theta:
+ cd $HOME/your/favorite/location
+ svn co https://ekptrac.physik.uni-karlsruhe.de/public/theta/tags/testing theta
+ cd theta
+ make
+
+ # 3. setup PATH to find theta-auto.py (in theta/utils2)
+ export PATH=$HOME/your/favorite/location/theta/utils2
+
+
+
+Note that you should run the ``cmsenv`` and the ``export PATH`` line every time you login; all others only once to get started.
+
+To obtain the scripts for the exercise, copy the content of  ``/afs/cern.ch/user/j/jott/public/hatslpc2014`` into one of your directories (I assume you use ``$HOME/hatslpc2014``):
+::
+
+ cp -a /afs/cern.ch/user/j/jott/public/hatslpc2014 $HOME
+
+
+Test the Setup
+==============
+
+To test that your setup is working, go to the directory created in the last step above (``$HOME/hatslpc2014``) and execute the "exercise 0" script by calling ``theta-auto.py`` like this:
+
+::
+
+ cd $HOME/hatslpc2014
+ theta-auto.py ex0.py
+
+
+.. note:: The ``ex0.py`` script is used for testing only here; it contains a few hints that might be useful if you are new to python. Otherwise, you do not need to care about the contents of ``ex0.py``.
+
+If everything is fine, this should produce an output similar to this one (``XXX`` is some user-dependent directory):
+
+::
+
+ Hello World!
+ Hello World from indented code.
+ called print_s with s=
+ called print_s with s=hello world
+ list items 0, 2: 1 3
+ list items:
+ 1
+ 2
+ 3
+ [INFO]  Running 'XXX/dnll-toys:0.0-s-d193c794a1.cfg --nowarn'
+ progress:   1000 / 1000   [100.0%]   errors:      0 [  0.0%]
+ Total number of likelihood evaluations: 23064
+ [INFO]  workdir is XXX
+
+
+You should also see that a file ``test.pdf`` has been created.
+
+You can now get started with the exercises by reading tyhe instructions in these pages and editing the ``exX.py`` files. These files are executed via
+
+::
+
+ theta-auto.py exX.py
+
+

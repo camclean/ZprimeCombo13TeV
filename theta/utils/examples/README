@@ -1,0 +1,24 @@
+The subdirectories within this directory contain some realistic
+examples for the usage of theta-auto.
+
+ks_test:
+For the validation of the modeling in a sideband, one can compatibility tests between data and MC.
+However, if these distributions are affected by rate and shape uncertainties, one should
+include them in the comparison by performing toy experiments, making a fit and only then calculating a chi2 value or a KS value.
+How such a KS-test including shape uncertainties can be performed with theta-auto is shown here.
+
+execute "../../theta-auto.py" from this directory to see a list of p-values for each distribution.
+In each case 5000 toys are performed.
+
+
+
+zprime:
+This is a search for Zprime -> ttbar and is a complete example of a more complex analysis
+which 
+ * uses more than just one channel
+ * uses template morphing to model shpae uncertainties
+ * has several independent signal hypotheses, the Zprimes at different masses
+The theta-auto script makes limit band plot for expected and observed limits
+for Bayesian and CLs limits.
+
+In the end, a chi2 test using the background-only model is performed.

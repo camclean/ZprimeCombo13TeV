@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/public/theta/!svn/ver/188/tags/testing/examples/paper/cfg
+END
+deltanll_hypo_bonly.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/public/theta/!svn/ver/188/tags/testing/examples/paper/cfg/deltanll_hypo_bonly.cfg
+END
+bayesfactor.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/public/theta/!svn/ver/188/tags/testing/examples/paper/cfg/bayesfactor.cfg
+END
+neyman_mle.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/public/theta/!svn/ver/188/tags/testing/examples/paper/cfg/neyman_mle.cfg
+END
+neyman_mle_syst.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/public/theta/!svn/ver/188/tags/testing/examples/paper/cfg/neyman_mle_syst.cfg
+END
+posterior.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/public/theta/!svn/ver/188/tags/testing/examples/paper/cfg/posterior.cfg
+END
+neyman_mle_syst_interp.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/public/theta/!svn/ver/188/tags/testing/examples/paper/cfg/neyman_mle_syst_interp.cfg
+END
+profile_likelihood_intervals.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/public/theta/!svn/ver/188/tags/testing/examples/paper/cfg/profile_likelihood_intervals.cfg
+END
+neyman_z_est.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/public/theta/!svn/ver/188/tags/testing/examples/paper/cfg/neyman_z_est.cfg
+END
+exmodel.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/public/theta/!svn/ver/188/tags/testing/examples/paper/cfg/exmodel.cfg
+END
+deltanll_hypo.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/public/theta/!svn/ver/188/tags/testing/examples/paper/cfg/deltanll_hypo.cfg
+END
+exmodel_syst.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/public/theta/!svn/ver/188/tags/testing/examples/paper/cfg/exmodel_syst.cfg
+END
+exmodel_syst_interp.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/public/theta/!svn/ver/188/tags/testing/examples/paper/cfg/exmodel_syst_interp.cfg
+END

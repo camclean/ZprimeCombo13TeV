@@ -1,0 +1,44 @@
+@include "exmodel.cfg"
+
+mu_s-10 = {
+   type = "delta_distribution";
+   mu_s = 10.0;
+};
+
+mu_s-0 = {
+   type = "delta_distribution";
+   mu_s = 0.0;
+};
+
+bayesfactor = {
+   type = "mcmc_posterior_ratio";
+   name = "bayesfactor";
+   background-only-distribution = {
+        type = "product_distribution";
+        distributions = ("@mu_s-0", "@mu_b-flat");
+   };
+   signal-plus-background-distribution = {
+       type = "product_distribution";
+       distributions = ("@mu_s-10", "@mu_b-flat");
+   };
+   iterations = 10000;
+};
+
+main = {
+   data_source = {
+      name = "data_source";
+      type = "model_source";
+      model = "@example_model";
+   };
+   model = "@example_model";
+   producers = ("@bayesfactor");
+   n-events = 10000;
+   output_database = {
+      type = "sqlite_database";
+      filename = "results/bayesfactor.db";
+   };
+};
+
+options = {
+  plugin_files = ("../../lib/core-plugins.so", "../../lib/root.so");
+};

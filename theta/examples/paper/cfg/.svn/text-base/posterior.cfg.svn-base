@@ -1,0 +1,33 @@
+@include "exmodel.cfg"
+
+post = {
+   type = "mcmc_posterior_histo";
+   name = "post";
+   parameters = ("mu_s");
+   iterations = 5000000;
+   
+   histo_mu_s = {
+      nbins = 60;
+      range = (0.0, 30.0);
+   };
+};
+
+main = {
+   data_source = {
+      type = "model_source_norandom";
+      name = "source";
+      model = "@example_model";
+      parameter-values = (("mu_s", 10.0), ("mu_b", 20.0));
+   };
+   model = "@example_model";
+   producers = ("@post");
+   n-events = 1;
+   output_database = {
+      type = "sqlite_database";
+      filename = "results/posterior.db";
+   };
+};
+
+options = {
+  plugin_files = ("../../lib/core-plugins.so", "../../lib/root.so");
+};

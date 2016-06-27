@@ -1,0 +1,28 @@
+******
+Extras
+******
+
+This page contains some extra questions for the exercises and some ideas for future exercises. They are **not** part of
+the usual exercise and do not have any solutions provided.
+
+In **exercise 1.d.**, you can plot also the test statistic distribution from theta using ``plot_histogram``.
+
+In **exercise 2.a.**, implement the Neyman construction using the normal approximation that n is distributed around :math:`b` with width :math:`\sqrt{b}`. Plot these
+normal distributions (e.g. with ``plot_xy``). This normal approximation can be useful to intuitively understand some behavior of upper limits which is also present in more
+complicated cases, e.g. the effect that adding a "large" uncertainty on the signal acceptance (such as 20%) usually changes the limit only very little.
+
+For **exercise 3.c.**, you can 
+
+  * calculate the limit for the shape model
+  * in analogy to ``get95up``, implement ``get95low`` for the lower limit. Note that by citing an interval with the interval ends at ``get95low``/``get95up`` you constructed a 90% C.L. Bayesian "central" interval.
+
+
+For **exercise 3.**, make **coverage studies**, i.e. determine frequentist properties of the Bayesian intervals for the counting experiment with fixed b by:
+
+  1. generating toy data according to some fixed s (use the methods from exercise 1. for that)
+  2. on each toy data, calculate the 95% C.L. upper limit
+  3. count the fraction of toys in which the true value of s is lower than the derived limit; this is the *coverage*
+  
+Repeating this for different values of s, you can make a "coverage vs. s" plot.
+
+

@@ -1,0 +1,136 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Bonus Questions &mdash; Statistic Exercises 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Statistic Exercises 1.0 documentation" href="index.html" />
+    <link rel="prev" title="Exercise 4: Real Analysis (theta)" href="ex4.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ex4.html" title="Exercise 4: Real Analysis (theta)"
+             accesskey="P">previous</a></li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bonus-questions">
+<span id="extras"></span><h1>Bonus Questions<a class="headerlink" href="#bonus-questions" title="Permalink to this headline">¶</a></h1>
+<p>This page contains some bonus questions which extend the standard exercises. No solution is provided except for the first extra for exercise 4.</p>
+<p>In <strong>exercise 1.d.</strong>, you can plot also the test statistic distribution from theta using <tt class="docutils literal"><span class="pre">plot_histogram</span></tt>.</p>
+<p>For <strong>exercise 1.</strong>, implement the case of two bins, one with background only and the other with signal and background. Assume you do not
+know the background level, but you know the extrapolation factor. So the Poisson mean in one bin is <tt class="docutils literal"><span class="pre">b</span></tt> and in the other is <tt class="docutils literal"><span class="pre">tau</span> <span class="pre">*</span> <span class="pre">b</span> <span class="pre">+</span> <span class="pre">s</span></tt> where <tt class="docutils literal"><span class="pre">s</span></tt> and <tt class="docutils literal"><span class="pre">b</span></tt>
+are the unknown model parameters and <tt class="docutils literal"><span class="pre">tau</span></tt> is a known constant (e.g. <tt class="docutils literal"><span class="pre">tau=1</span></tt>); this is known as the &#8220;onn/off&#8221; problem.
+Write down a test statistic definition you think makes sense and give a recipe for
+deciding whether or not an observation is a 3sigma effect. Use toy-Monte Carlo to validate your recipe (checking that the type-I error rate is indeed what you claim by 3sigma)
+for different values of <tt class="docutils literal"><span class="pre">b</span></tt>.</p>
+<p>In <strong>exercise 2.a.</strong>, implement the Neyman construction using the normal approximation that n is distributed around <img class="math" src="_images/math/8136a7ef6a03334a7246df9097e5bcc31ba33fd2.png" alt="b"/> with width <img class="math" src="_images/math/d49dd169d6e5887dab22e0a66cbd5c25e431d1d0.png" alt="\sqrt{b}"/>. Plot these
+normal distributions (e.g. with <tt class="docutils literal"><span class="pre">plot_xy</span></tt>). This normal approximation is useful to intuitively understand some behavior of upper limits which is also present in more
+complicated cases, e.g. the effect that adding a &#8220;large&#8221; uncertainty on the signal acceptance (such as 20%) usually changes the limit only very little, as such an uncertainty
+only changes the relevant normal distributions very little.</p>
+<p>For <strong>exercise 3.c.</strong>, you can</p>
+<blockquote>
+<div><ul class="simple">
+<li>calculate the limit for the shape model</li>
+<li>Using <tt class="docutils literal"><span class="pre">get95up</span></tt> as template, implement <tt class="docutils literal"><span class="pre">get95low</span></tt> for the lower limit. Note that by citing an interval with the interval ends at <tt class="docutils literal"><span class="pre">get95low</span></tt>/<tt class="docutils literal"><span class="pre">get95up</span></tt> you constructed a 90% C.L. Bayesian &#8220;central&#8221; interval.</li>
+</ul>
+</div></blockquote>
+<p>For <strong>exercise 3.</strong>, make <strong>coverage studies</strong>, i.e. determine frequentist properties of the Bayesian intervals for the counting experiment with fixed b by:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>generating toy data according to some fixed s (use the methods from exercise 1. for that)</li>
+<li>on each toy data, calculate the 95% C.L. upper limit</li>
+<li>count the fraction of toys in which the true value of s is lower than the derived limit; this is the <em>coverage</em></li>
+</ol>
+</div></blockquote>
+<p>Repeating this for different values of s, you can make a &#8220;coverage vs. s&#8221; plot. Such a study of the &#8220;frequentist properties&#8221; of a Bayesian method can be helpful to convince
+frequentists that your Bayesian method leads to results that also make sense from the frequentist point of view.</p>
+<dl class="docutils">
+<dt>For <strong>exercise 4.</strong>, you can (in no specific order, pick any one you like):</dt>
+<dd><ul class="first last simple">
+<li>for the model of exercise 4, make a background-only fit to data and plot the result (see <tt class="docutils literal"><span class="pre">plot_mle</span></tt> method in <tt class="docutils literal"><span class="pre">extras.py</span></tt>); make sure it qualitatively behaves as you would expect (=data/mc agreement is better).
+Also try parameter values other than those from the mle (i.e. shift some values by hand) and look at the result.</li>
+<li>calculate Bayesian limits (have a look at the <a class="reference external" href="http://www-ekp.physik.uni-karlsruhe.de/~ott/theta/theta-auto/bayesian.html">theta documentation of bayesian_limits</a>). How do they compare to the asymptotic CLs ones?</li>
+<li>obtain and plot the marginal posterior distribution for the signal strength parameter beta_signal for various signals (see exercise 3.b.)</li>
+<li>run the <tt class="docutils literal"><span class="pre">mle</span></tt> method on toys as input (<tt class="docutils literal"><span class="pre">input</span> <span class="pre">=</span> <span class="pre">&quot;toys:XXX&quot;</span></tt>) many times (e.g. <tt class="docutils literal"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">1000</span></tt> or more) and check whether the bias is 0, i.e. the mean fitted value for <tt class="docutils literal"><span class="pre">beta_signal</span></tt> coincides with the true value XXX.
+Also check whether the variance estimate (=the error from the fit) matches the variance of the toys, e.g. by constructing the pull distribution.</li>
+<li>calculate p-values using toys; see <a class="reference internal" href="ex1.html#ex1d"><em>1.d. Toy MC method for shape model (with theta)</em></a></li>
+<li>study the look-elsewhere effect with toys by running many background-only toys and study the maximum local Z-value (see <tt class="docutils literal"><span class="pre">lee</span></tt> in <tt class="docutils literal"><span class="pre">extras.py</span></tt> for some code to start)</li>
+<li>modify the <tt class="docutils literal"><span class="pre">DATA</span></tt> histogram in the input (e.g. introducing a small peak) to see the effect on the p-value and limit</li>
+<li>create your own input root file, e.g. with only one bin to see what theta gives for the counting experiment in exercise 1 (also: try switching handling MC uncertainties on and off)</li>
+</ul>
+</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ex4.html"
+                        title="previous chapter">Exercise 4: Real Analysis (theta)</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ex4.html" title="Exercise 4: Real Analysis (theta)"
+             >previous</a></li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Jochen Ott.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

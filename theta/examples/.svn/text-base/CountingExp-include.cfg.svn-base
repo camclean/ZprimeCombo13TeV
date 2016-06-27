@@ -1,0 +1,83 @@
+    //define one observable named "NEvts" with range [0, 2000] in 1 bin.
+    observables = {
+	 NEvts = {
+         	range = (0.0, 2000.0);
+		nbins = 1;	
+	 };
+    };
+
+    //the parameters of the model are the number of signal and
+    // background events after the selection
+    parameters = ("s", "b_1", "b_2");
+
+countingExp = {
+    //specification of the "NEvts" observable
+    NEvts = {
+        signal = { // "signal" is a name you can choose freely here
+            coefficient-function = {type = "multiply"; factors = ("s");};
+            histogram = {
+                type = "fixed_poly";
+                observable = "NEvts";
+                normalize_to = 1.0;
+		        coefficients = [1.0];
+            };
+        };
+        
+        bkg_1 = {
+            coefficient-function = {type = "multiply"; factors = ("b_1");};
+            histogram = {
+                type = "fixed_poly";
+                observable = "NEvts";
+                normalize_to = 1.0;
+                coefficients = [1.0];
+            };
+        };
+
+        bkg_2 = {
+            coefficient-function = {type = "multiply"; factors = ("b_2");};
+            histogram = {
+                type = "fixed_poly";
+                observable = "NEvts";
+                normalize_to = 1.0;
+                coefficients = [1.0];
+            };
+        };
+
+    };
+
+    parameter-distribution = {
+       type = "product_distribution";
+       distributions = ("@b-dist",
+        {
+            type = "flat_distribution";
+            s = {
+               range = (0.0, "inf");
+               fix-sample-value = 150.0;
+            };
+        });
+    };
+};
+
+b-dist = {
+       type = "product_distribution";
+       distributions = ({
+            type = "gauss";
+            parameter = "b_1";
+            range = (0.0, "inf");
+            mean  = 10.0;
+            width =  5.0;
+        },
+        {
+            type = "gauss";
+            parameter = "b_2";
+            range = (0.0, "inf");
+            mean  = 80.0;
+            width = 20.0;
+        });
+};
+
+
+options = {
+  plugin_files = ("$THETA_DIR/lib/core-plugins.so", "$THETA_DIR/lib/root.so");
+};
+

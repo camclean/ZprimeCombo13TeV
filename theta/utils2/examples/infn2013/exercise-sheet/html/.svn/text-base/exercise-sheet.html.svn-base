@@ -1,0 +1,182 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Exercise 0: Test your environment &mdash; Statistic Exercises 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Statistic Exercises 1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="exercise-0-test-your-environment">
+<h1>Exercise 0: Test your environment<a class="headerlink" href="#exercise-0-test-your-environment" title="Permalink to this headline">¶</a></h1>
+<p>In a console, change to the directory &#8220;&lt;theta-svn&gt;/utils2/examples/infn2013&#8221; where &#8220;&lt;theta-svn&gt;&#8221;
+is the path where you checked out theta from subversion. TODO: where is this on VM?</p>
+<dl class="docutils">
+<dt>Execute ex0.py by typing::</dt>
+<dd>../../theta-auto.py  ex0.py</dd>
+</dl>
+<p>in the console.</p>
+<p>In case your setup is working, you should see an output TODO</p>
+<dl class="docutils">
+<dt>Also the other scripts in this exercise will be called this way, using::</dt>
+<dd>../../theta-auto.py &lt;script-name&gt;</dd>
+</dl>
+<p>Usually, most of the code is already included and only minor modifications are required.
+In case you are stuck, have a look at the corresponding &#8220;solutions&#8221; python file which contains
+the non-trivial implementation parts.</p>
+<p>Some ready-made routines are in &#8220;common.py&#8221;; the methods are documented with comments.</p>
+</div>
+<div class="section" id="exercise-1-hypothesis-tests-for-a-counting-experiment">
+<h1>Exercise 1: Hypothesis tests for a counting experiment<a class="headerlink" href="#exercise-1-hypothesis-tests-for-a-counting-experiment" title="Permalink to this headline">¶</a></h1>
+<p>This exercise will repeat common concepts of hypothesis test (p-value) from the lecture
+for a typical &#8220;prototype&#8221; experiment in HEP: assume that after some event selection, you
+expect a mean background of b, so the number of data events n is assumed
+to follow a Poisson distribution with mean b in absence of signal (this is the null hypothesis
+of the hypothesis test). For a non-zero signal s, the data will follow a Poisson distribution
+around s+b.</p>
+<p>Reminder: The p-value is the probability to observe &#8220;at least as extreme&#8221; as  data, where
+a test statistic is used to specify what &#8220;extreme&#8221; actually means. For the present case,
+the number of observed events is a good test statistic, so the p-value is the probability
+to observe at least as many events for background-only.</p>
+<dl class="docutils">
+<dt>1.a. <em>Analytical p-values</em>: For different values of the background b, determine the p-value for</dt>
+<dd><p class="first">an observation around (or above) b by numerical evaluation of the analytic formula.
+For b=5.2 and nobs between 5 and 20, this is implemented in the method &#8220;ex1a&#8221; in the file &#8220;ex1.py&#8221;
+(comment out the call to ex1a in the code).</p>
+<p class="last">Question: What is the p-value and Z-value for
+* b=10000 and nobs=10000
+* b=10000 and nobs=10100
+* b=10000 and nobs=10200
+* b=10000 and nobs=9900
+Compare the result to the normal approximation Z_a = s/sqrt(b) = (n - b)/sqrt(b).
+(The code for calculating and printing Z_a is currently commented out).</p>
+</dd>
+<dt>1.b. <em>Toy MC method for p-value</em>: As in part a., compute p-values, but this time use the toy Monte-Carlo</dt>
+<dd><p class="first">method. First, have a look at the generated Poisson data by commenting in the code blocks.</p>
+<dl class="last docutils">
+<dt>Question: What is the p-value and Z-value for b=100 and nobs=120? Compare the result to the normal approximation</dt>
+<dd>s / sqrt(b).</dd>
+<dt>Extra question: Try out different values for b and nobs, paying particular attention to the quality of</dt>
+<dd>the normal approximation.</dd>
+<dt>[Note that you need to set the number of toys high enough to reach a reasonable accuracy for the p-value.</dt>
+<dd>To get the error on p, either re-execute the script to see the change in p-value or implement the error estimate
+delta_p = sqrt(p*(1-p)/ntoy)  ]</dd>
+</dl>
+</dd>
+<dt>1.c. <em>Toy MC method with systematic uncertainty</em>: Compute the p-value with the MC method</dt>
+<dd><p class="first">for a statistical model with an uncertainty on the background with the prior-average method.</p>
+<p>As in 1.b., print (or plot) some generated toy data values. Also try a large relative uncertainty
+on the Poisson mean (e.g. 100%). You will see the code fail. Why? Fix the code as you think is appropriate.</p>
+<dl class="last docutils">
+<dt>Question: What is the p-value and Z-value for b=10000, delta_b=50 and nobs = 10200? Compare</dt>
+<dd><blockquote class="first">
+<div>the results to the normal approximation Z_a = s / sqrt(b + delta_b^2).</div></blockquote>
+<dl class="last docutils">
+<dt>Extra question: Try out different values for b, nobs and delta_b, paying particular attention to the quality of</dt>
+<dd>the normal approximation.</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>1.d. <em>Toy MC method with theta</em>: We now use the &#8220;theta&#8221; program for generating the likelihood-ratio test statistic</dt>
+<dd><p class="first">distribution for the shape model introduced in the lecture. Follow the instructions in the code
+to generate the likelihood ratio test statistic for a background-only toy ensemble and for data in order to calculate the
+p-value and Z-value for the signal mass of 500; if you remember the lecture, this was a 3.1sigma effect.</p>
+<p>The toy data with the 3.1sigma effect is generated with the value for the random seed of 50 (at least in my version of
+python ...). Try out other seeds as an argument for &#8220;build_shape_model&#8221; (defined and documented in common.py).
+Also manipulate other arguments to &#8220;build_shape_model&#8221; to include a background rate and shape uncertainty
+and re-generate test statistic distributions for those cases.</p>
+<p class="last">Question: How does the p-value change if including both, a 10% rate uncertainty on the background and the shape uncertainty?</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="exercise-2-neyman-limits-and-intervals">
+<h1>Exercise 2: Neyman limits and intervals<a class="headerlink" href="#exercise-2-neyman-limits-and-intervals" title="Permalink to this headline">¶</a></h1>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Exercise 0: Test your environment</a></li>
+<li><a class="reference internal" href="#exercise-1-hypothesis-tests-for-a-counting-experiment">Exercise 1: Hypothesis tests for a counting experiment</a></li>
+<li><a class="reference internal" href="#exercise-2-neyman-limits-and-intervals">Exercise 2: Neyman limits and intervals</a></li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/exercise-sheet.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Jochen Ott.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

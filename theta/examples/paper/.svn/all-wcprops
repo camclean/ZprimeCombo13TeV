@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/public/theta/!svn/ver/188/tags/testing/examples/paper
+END
+execute-all.sh
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/public/theta/!svn/ver/188/tags/testing/examples/paper/execute-all.sh
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/public/theta/!svn/ver/188/tags/testing/examples/paper/README
+END

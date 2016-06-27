@@ -1,0 +1,38 @@
+@include "counting-nobkg.cfg"
+
+int = {
+    type = "deltanll_intervals";
+    name = "int";
+    parameter = "Theta";
+    minimizer = {type = "root_minuit";};
+    clevels = [0.6827, 0.9545];
+};
+
+options = {
+    plugin_files = ("$THETA_DIR/lib/core-plugins.so", "$THETA_DIR/lib/root.so");
+};
+
+writer = {
+    type = "pseudodata_writer";
+    name = "writer";
+    observables = ("o");
+    write-data = false;
+};
+
+main = {
+    data_source = {
+        name = "data_source";
+    	type = "model_source";
+    	model = "@counting";
+    	rnd_gen = { seed = 123; };
+    };
+
+    model = "@counting";
+    producers = ("@int", "@writer");
+    log-report = false;
+    n-events = 50;
+    output_database = {
+        type = "sqlite_database";
+        filename = "counting-nobkg-deltanll.db";
+    };
+};

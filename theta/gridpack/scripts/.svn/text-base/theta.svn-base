@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# in the gridpack, this script replaces the theta executable. It
+# can do some setup for LD_LIBRARY_PATH ...
+
+dir=`dirname $0`
+if [ -z "$dir" ]; then
+   dir="."
+fi
+dir=`readlink -e $dir`
+
+libdir=`readlink -e $dir/../lib`
+extlibdir=`readlink -e $dir/../extlib`
+
+export ROOTSYS=`readlink -e $dir/..`
+
+# boost (filesystem) has problems in some versions if locale-defining environment variables
+# are set to some non-supported value, so set LC_ALL here explicitly (according to POSIX,
+# LC_ALL takes precedence over LANG and LC_*, so setting LC_ALL should suffice):
+export LC_ALL=C
+
+# note: set LD_LIBRARY_PATH at the very end, otherwise readlink will not work, as readlink
+# uses libc from extlib which is not necessarily compatible
+export LD_LIBRARY_PATH=$libdir:$extlibdir:$LD_LIBRARY_PATH
+exec $dir/../extlib/ld-linux.so $dir/theta.exe $*
+

@@ -1,0 +1,39 @@
+@include "gaussoverflat-include.cfg"
+
+mle = {
+    type = "mle";
+    name = "mle";
+    minimizer = "@myminuit";
+    parameters = ("s");
+};
+
+myminuit = {
+   type = "root_minuit";
+};
+
+intervals = {
+   type = "deltanll_intervals";
+   name = "intervals";
+   parameter = "s";
+   clevels = [0.68];
+   minimizer = "@myminuit";
+};
+
+main = {
+   data_source = {
+      type = "model_source";
+      model = "@main.model";
+      name = "source";
+   };
+   model = "@gaussoverflat";
+   producers = ("@mle", "@intervals");
+   n-events = 50;
+   output_database = {
+        type = "sqlite_database";
+        filename = "gaussoverflat-intervals.db";
+    };
+};
+
+options = {
+  plugin_files = ("$THETA_DIR/lib/core-plugins.so", "$THETA_DIR/lib/root.so");
+};

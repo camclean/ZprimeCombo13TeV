@@ -1,0 +1,183 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Exercise 3: Bayesian Inference &mdash; Statistic Exercises 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Statistic Exercises 1.0 documentation" href="index.html" />
+    <link rel="next" title="Exercise 4: Real Analysis (theta)" href="ex4.html" />
+    <link rel="prev" title="Exercise 2: (Modified) Frequentist Limits" href="ex2.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ex4.html" title="Exercise 4: Real Analysis (theta)"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="ex2.html" title="Exercise 2: (Modified) Frequentist Limits"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="exercise-3-bayesian-inference">
+<span id="ex3"></span><h1>Exercise 3: Bayesian Inference<a class="headerlink" href="#exercise-3-bayesian-inference" title="Permalink to this headline">¶</a></h1>
+<p>Reminder: The Bayesian method starts by defining the posterior in the model parameter</p>
+<div class="math">
+<p><img src="_images/math/60f2aec192d29af2141867ca34deb7c79bbbf6c6.png" alt="p(\theta|d) = c p(d|\theta)\pi(\theta)"/></p>
+</div><p>where <img class="math" src="_images/math/52029d5bdf1817467ad91578b47231b3240d09e4.png" alt="p(\theta|d)"/> is the posterior for the model parameters <img class="math" src="_images/math/52e8ed7a3ba22130ad3984eb2cd413406475a689.png" alt="\theta"/>, given data <img class="math" src="_images/math/96ab646de7704969b91c76a214126b45f2b07b25.png" alt="d"/>,
+<img class="math" src="_images/math/e1e454a2534d5e1b5ad9ef22399660cb36feb328.png" alt="p(d|\theta)"/> is the probability to observe data <img class="math" src="_images/math/96ab646de7704969b91c76a214126b45f2b07b25.png" alt="d"/> given parameters <img class="math" src="_images/math/822939254fcde39c04fe5abcb737ead6762e893c.png" alt="theta"/>, <img class="math" src="_images/math/88eb90f97ab33e334923d6df894953f5570164c9.png" alt="\pi(\theta)"/>
+is the prior for the model parameters, and <img class="math" src="_images/math/3372c1cb6d68cf97c2d231acc0b47b95a9ed04cc.png" alt="c"/> is a normalization constant, ensuring that the right-hand-side
+of this definition is actually a properly normalized probability density.</p>
+<p>In general, one then constructs the marginal posterior by &#8220;integrating out&#8221; all nuisance parameters.</p>
+<p>In this exercise, we will construct the (marginal) posterior for the counting experiment and the shape model,
+derive intervals from it, and make a prior sensitivity analysis.</p>
+<div class="section" id="a-posterior-for-the-counting-experiment">
+<h2>3.a. Posterior for the counting experiment<a class="headerlink" href="#a-posterior-for-the-counting-experiment" title="Permalink to this headline">¶</a></h2>
+<p>As in earlier exercises, we consider a counting experiment where the number of observed events follows a Poisson
+distribution with mean s+b with known b; s is the only model parameter. For now, we use a flat prior
+for s on the interval <img class="math" src="_images/math/1d12b02124a4d36949e37c27113facb1f2b1b51f.png" alt="[0,\infty]"/>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You might argue that a &#8220;flat&#8221; prior for s on an infinite interval is not well-defined. You are right, but such an &#8220;improper prior&#8221; is usually not a problem as the posterior can still be normalized.</p>
+</div>
+<p>Use the prepared code (and try to understand it) in <tt class="docutils literal"><span class="pre">ex3.py</span></tt> to plot the posterior for b=5.2 and nobs=6.</p>
+<p><strong>Question i</strong>: At which value of s is the maximum posterior?</p>
+<p>Adding an uncertainty on the background b is implemented by using a normal prior for b (which is now a nuisance parameter in the statistical model)
+with mean b0 wand width delta_b. The marginal posterior in s is given by &#8220;integrating out&#8221; the nuisance parameter:</p>
+<div class="math">
+<p><img src="_images/math/4490762dfb950f4920ec86c1c74cf11800014575.png" alt="p(s|n) = \int_{b} p(s,b|n) db"/></p>
+</div><p>where the posterior <img class="math" src="_images/math/fc633185aa58310991beba0cab0ccdb6b041c88b.png" alt="p(s,b|n)"/> is evaluated for fixed b &#8211; which has already been implemented.</p>
+<p>This integration is implemented in <tt class="docutils literal"><span class="pre">counting_posterior_unc</span></tt>; try to understand how it works.</p>
+<p><strong>Question ii</strong>: Using an uncertainty of 50%, delta_b = 2.6, how does the posterior shape change qualitatively; where is the maximum posterior value now?</p>
+</div>
+<div class="section" id="b-posterior-for-the-shape-model-using-theta">
+<h2>3.b. Posterior for the shape model (using theta)<a class="headerlink" href="#b-posterior-for-the-shape-model-using-theta" title="Permalink to this headline">¶</a></h2>
+<p>Use the method <tt class="docutils literal"><span class="pre">get_posterior</span></tt> which calls theta to get the marginal posterior for the signal strength parameter
+for the shape model. Make another plot for the posterior if including a 10% rate uncertainty on the background
+and the shape uncertainty.</p>
+<p><strong>Question</strong>: How does the posterior change qualitatively when including the uncertainties?</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In a realistic model with uncertainties, the number of nuisance parameters can easily reach 20, in some cases even several hundred. In this case, the integration over the nuisance parameter to get the marginal posterior in the signal cross section required methods which can handle such large dimensions; using the most straight-forward approach of evaluating the function in a grid (i.e., generalizing the method in 3.a. in <tt class="docutils literal"><span class="pre">counting_posterior_unc</span></tt>) would require a huge number of function evaluations and is not useful any more. Theta and other packages use the Metroplis Markov-Chain Monte-Carlo algorithm for this integration, which performs well in many dimensions.</p>
+</div>
+</div>
+<div class="section" id="c-limits-from-posteriors">
+<h2>3.c. Limits from posteriors<a class="headerlink" href="#c-limits-from-posteriors" title="Permalink to this headline">¶</a></h2>
+<p>Having calculated the (marginal) posteriors in 3.a. and 3.b., we can now proceed to derive limits from these posteriors: The 95% C.L. upper
+limit on <img class="math" src="_images/math/2d8c833ed800824727cd7bd2fb9de1a12ad7e674.png" alt="\mu"/> is given by the value <img class="math" src="_images/math/2f902c0a01fa73bf3cb3a048c5b68b62be33b220.png" alt="\mu_{95}"/> such that</p>
+<div class="math">
+<p><img src="_images/math/0c36a57e1b9a5c32505ce870431baf4b77b5e3e3.png" alt="\int_{\mu=0}^{\mu_{95}} p(\mu|d) d\mu = 0.95"/></p>
+</div><p>where <img class="math" src="_images/math/56583d7072338f0b1f94422243762f95e84c5f72.png" alt="p(\mu|d)"/> is the marginal posterior for <img class="math" src="_images/math/2d8c833ed800824727cd7bd2fb9de1a12ad7e674.png" alt="\mu"/> (note that for the counting experiment, <img class="math" src="_images/math/2d8c833ed800824727cd7bd2fb9de1a12ad7e674.png" alt="\mu"/> and s are used as synonyms here).</p>
+<p>Implement the method <tt class="docutils literal"><span class="pre">get95up</span></tt> which determines the 95% C.L. upper limit, given the <tt class="docutils literal"><span class="pre">(x,y)</span></tt> posterior data in the format produced in exercises 3.a. and 3.b. and
+apply it to the posteriors for the counting and shape model to answer the following <strong>questions</strong>:</p>
+<blockquote>
+<div><ol class="lowerroman simple">
+<li>What are the Bayesian 95% C.L. upper limits for the example in 3.a.? (i.e. b=5.2, and nobs=6; without and with uncertainty on b)?</li>
+<li>What is the Bayesian 95% C.L. upper limit for a &#8220;no-background&#8221; experiment b=0 with nobs=0? Compare it to the frequentist limit from question 2.a.iv.</li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Make sure to use a large enough range for s (as <tt class="docutils literal"><span class="pre">get95up</span></tt> assumes that the posterior vanishes outside the range); also use a large number of scan points if you want an accurate result.</p>
+</div>
+<p><em>Discussion</em>: In question ii., you will notice that the frequentist limit and the Bayesian limit coincide in the considered (background-free, n=0) case. However, this does not generalize: As you can see
+for b=5.2, n=6, the limits do not coincide.</p>
+</div>
+<div class="section" id="d-prior-sensitivity-analysis">
+<h2>3.d. Prior Sensitivity Analysis<a class="headerlink" href="#d-prior-sensitivity-analysis" title="Permalink to this headline">¶</a></h2>
+<p>One of the criticisms on the Bayesian method is the subjectiveness (arbitrariness) of the prior, especially for the prior of the parameter of interest (here: s or <img class="math" src="_images/math/6690e784718c1361117cfcd64ea7dbb49095d0d8.png" alt="mu"/>).
+While one usually tries to use an &#8220;uninformed&#8221; prior which does not &#8220;prefer&#8221; apriori any particular values, this is still hard in practice: we used a flat prior in s in 3.a., but
+we could also have used a prior that is flat in some other variable related to s, which could correspond to a prior proportional to s (again, this is an improper prior).</p>
+<p>By multiplying the posterior point-wise with the new (improper) prior <img class="math" src="_images/math/a375c99d16ddf3ff3fbe5b7ada32c3968d4bbada.png" alt="p(s)=s"/>, calculate the updated posterior for the counting experiment
+with b=5.2, n=6; this is implemented in the method <tt class="docutils literal"><span class="pre">apply_prior</span></tt>.</p>
+<p><strong>Question</strong>: How does the posterior (qualitatively) change when applying this prior; what is the new limit?</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Exercise 3: Bayesian Inference</a><ul>
+<li><a class="reference internal" href="#a-posterior-for-the-counting-experiment">3.a. Posterior for the counting experiment</a></li>
+<li><a class="reference internal" href="#b-posterior-for-the-shape-model-using-theta">3.b. Posterior for the shape model (using theta)</a></li>
+<li><a class="reference internal" href="#c-limits-from-posteriors">3.c. Limits from posteriors</a></li>
+<li><a class="reference internal" href="#d-prior-sensitivity-analysis">3.d. Prior Sensitivity Analysis</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ex2.html"
+                        title="previous chapter">Exercise 2: (Modified) Frequentist Limits</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ex4.html"
+                        title="next chapter">Exercise 4: Real Analysis (theta)</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ex4.html" title="Exercise 4: Real Analysis (theta)"
+             >next</a></li>
+        <li class="right" >
+          <a href="ex2.html" title="Exercise 2: (Modified) Frequentist Limits"
+             >previous</a> |</li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Jochen Ott.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+# You can edit this file to specify suitable options for your build.
+#
+# All option variables are boolean-like and should be either either set to
+# "yes" or "no".
+#
+# After modifying this file, make sure to "make clean" before the next
+# "make" to make sure all changes are picked up.
+
+# If yes, build tests from the "test" subdirectory
+OPTIONS_BUILD_TESTS := no
+
+# If yes, use amdlibm for some math functions instead of libm, most notably "exp" and "log",
+# resulting in some speed gain.
+OPTIONS_USE_AMDLIBM := yes
+
+# If yes, build llvm plugins in "llvm" subdirectory. Requires working
+# llvm installation (tested with 3.1)
+OPTIONS_BUILD_LLVM := no
+
+# If yes, build threading building block plugin in the "tbb" subdirectory. Requires working
+# tbb installation.
+OPTIONS_BUILD_TBB := no
+
+# If set to yes, will disable optimizations for easier debugging.
+# Note that debugging symbols are added in any case.
+OPTIONS_DEBUG := no
+
+# if set to yes, include the "--print-time" option for theta
+OPTIONS_TIMER := no
+
+# Additional flags for compilation / linking so files / linking exe files:
+OPTIONS_CFLAGS := 
+OPTIONS_LDFLAGS_SO :=
+OPTIONS_LDFLAGS_EXE :=
+
+# Usually, theta assumes building for 64-bit x86 cpus (and an gnu-compatible assembler, which gcc uses).
+#
+# Setting this flag to 'yes' disables some (assembler) optimizations and replaces
+# functions with generic ones. 
+# Note that some platform-specific optimizations are controlled by compiler-defined defines such
+# as __SSE2__ and are performed independently of the value given here.
+OPTIONS_GENERIC_ARCH := no
+
+# allow overriding above values via a non-versioned file. Note that Makefile.options.local
+# is a file in THIS directory, but as this Makefile.options file is included
+# from the subdirs, use "..":
+-include ../Makefile.options.local

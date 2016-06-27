@@ -1,0 +1,47 @@
+@include "gaussoverflat-include.cfg"
+
+hypotest = {
+    type = "deltanll_hypotest";
+    name = "hypotest";
+    minimizer = "@myminuit";
+    background-only-distribution = {
+                type = "product_distribution";
+                distributions=("@b-dist", "@delta-s-zero");
+     };
+     signal-plus-background-distribution = "@gaussoverflat.parameter-distribution";
+};
+
+delta-s-zero = {
+   type = "delta_distribution";
+   s = 0.0;
+};
+
+myminuit = {
+   type = "root_minuit";
+};
+
+main = {
+   data_source = {
+      type = "model_source";
+      model = "@main.model";
+      name = "source";
+   };
+   model = "@gaussoverflat";
+   producers = ("@hypotest");
+   n-events = 500;
+   output_database = {
+        type = "rootfile_database";
+        filename = "out.root";
+        products_histograms = (
+        {
+           name = "nll_diff";
+           nbins = 310;
+           range = (-1.0, 30.0);
+           column = "hypotest__nll_diff";
+        });
+    };
+};
+
+options = {
+  plugin_files = ("$THETA_DIR/lib/core-plugins.so", "$THETA_DIR/lib/root.so");
+};

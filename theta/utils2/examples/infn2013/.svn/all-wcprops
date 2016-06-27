@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/public/theta/!svn/ver/380/tags/testing/utils2/examples/infn2013
+END
+common.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/public/theta/!svn/ver/378/tags/testing/utils2/examples/infn2013/common.py
+END
+ex1-solutions.py
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/public/theta/!svn/ver/378/tags/testing/utils2/examples/infn2013/ex1-solutions.py
+END
+ex2-solutions.py
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/public/theta/!svn/ver/378/tags/testing/utils2/examples/infn2013/ex2-solutions.py
+END
+ex0.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/public/theta/!svn/ver/378/tags/testing/utils2/examples/infn2013/ex0.py
+END
+ex3-solutions.py
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/public/theta/!svn/ver/380/tags/testing/utils2/examples/infn2013/ex3-solutions.py
+END
+ex1.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/public/theta/!svn/ver/378/tags/testing/utils2/examples/infn2013/ex1.py
+END
+extras.txt
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/public/theta/!svn/ver/378/tags/testing/utils2/examples/infn2013/extras.txt
+END
+ex2.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/public/theta/!svn/ver/378/tags/testing/utils2/examples/infn2013/ex2.py
+END
+ex3.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/public/theta/!svn/ver/380/tags/testing/utils2/examples/infn2013/ex3.py
+END
+clean.sh
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/public/theta/!svn/ver/378/tags/testing/utils2/examples/infn2013/clean.sh
+END

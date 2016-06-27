@@ -1,0 +1,30 @@
+@include "gaussoverflat-include.cfg"
+
+bayesian_quantiles = {
+    type = "mcmc_quantiles";
+    name = "bayesian_quantiles";
+    parameter = "s";
+
+    //produce data to derive 1 sigma central interval, central value and 95% upper limit:
+    quantiles = [0.16, 0.5, 0.84, 0.95];
+    iterations = 10000;
+};
+
+main = {
+   data_source = {
+      type = "model_source";
+      model = "@main.model";
+      name = "source";
+   };
+   model = "@gaussoverflat";
+   producers = ("@bayesian_quantiles");
+   n-events = 50;
+   output_database = {
+        type = "sqlite_database";
+        filename = "gaussoverflat-mcmc_quantiles.db";
+   };
+};
+
+options = {
+  plugin_files = ("$THETA_DIR/lib/core-plugins.so");
+};

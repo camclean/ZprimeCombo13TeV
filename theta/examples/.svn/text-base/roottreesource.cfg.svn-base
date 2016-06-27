@@ -1,0 +1,78 @@
+observables = {
+   o1 = {nbins = 1; range = [0.0, 1.0];};
+   o2 = {nbins = 1; range = [0.0, 1.0];};
+};
+
+parameters = ("s1", "s2");
+
+mle = {
+    type = "mle";
+    name = "mle";
+    parameters ="@parameters";
+    minimizer = "@myminuit";
+};
+
+myminuit = {
+   type = "root_minuit";
+};
+
+flat-unit-histo = {
+   type = "fixed_poly";
+   observable = "o1";
+   normalize_to = 1.0;
+   coefficients = [1.0];
+};
+
+model = {
+   o1 = {
+      signal = {
+          coefficient-function = {type = "multiply"; factors = ("s1"); };
+          histogram = "@flat-unit-histo";
+      };
+   };
+   
+   o2 = {
+      signal = {
+          coefficient-function = {type = "multiply"; factors = ("s2"); };
+          histogram = "@flat-unit-histo";
+      };
+   };
+   parameter-distribution = {type = "flat_distribution";
+       s1 = { range = (1e-12, "inf"); fix-sample-value = 30.0;};
+       s2 = { range = (1e-12, "inf"); fix-sample-value = 30.0;};
+       };
+};
+
+main = {
+   data_source = {
+      type = "root_ntuple_source";
+      name = "source";
+      filename = "$THETA_DIR/root/testtree.root";
+      //treename = "tree"; //not required as this is the only tree there ...
+      mean_nevents = 30.0;
+      observables = {
+         o1 = {
+            nbins = 1;
+            range = [0.0, 1.0];
+            branchname = "o1";
+         };
+         o2 = {
+            nbins = 1;
+            range = [0.0, 1.0];
+            branchname = "o2";
+         };
+      };
+   };
+   model = "@model";
+   producers = ("@mle");
+   n-events = 1000;
+   output_database = {
+      type = "rootfile_database";
+      filename = "roottreesource-out.root";
+   };
+};
+
+options = {
+   plugin_files = ("$THETA_DIR/lib/root.so", "$THETA_DIR/lib/core-plugins.so");
+};
+

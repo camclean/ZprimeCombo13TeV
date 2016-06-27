@@ -1,0 +1,49 @@
+Code generation works on modular basis: each module generates the code
+which represents (part of) its functionality. The only relevant classes
+which code generation applies to are Function and HistogramFunction. Code
+generation of these is used by llvm_model but this is a special case as llvm_model
+itself does not provide a visible interface to generate code, in contrast to
+"llvm_enabled" Functions and HistogramFunctions.
+
+Functions and HistogramFunctions which generate code should inherit from
+llvm_enabled<Function> or llvm_enabled<HistogramFunction> and implement
+the "llvm_codegen" routine defined there. This method should generate functions
+as explained below.
+
+For Functions / HistogramFunctions not generating their own code, a "generic" llvm-function is emitted
+which in turn calls the operator() of the original instance. This has some overhead from the indirection
+(and from the conversion of par_values from double* to theta::ParValues), so if too many
+Functions / HistogramFunctions in a model are not "llvm_enabled", performance will be worse
+than not using llvm.
+
+HistogramFunctions which do not depend on any parameter (in particular anything inheriting from
+ConstantHistogramFunction) do not need to provide a special "llvm_enabled" version as there will be
+properly generated llvm code (i.e., optimized code which does not work via a callback).
+
+
+* Generated code for Functions is a llvm function
+  double <prefix>_evaluate(const double * par_values);
+  which returns the function value at the given paramter values.
+
+* Generated code for HistogramFunctions:
+  void <prefix>_add_with_coeff(double coeff, const double * par_values, double * histodata);
+  Add the HistogramFunction prediction to histodata, using the given coefficient.
+  There is no number of bins or alike as this is constant and known at code generation time.
+
+The mapping between par_values and a ParValues instance is canonically defined through the module's parameter
+ids. For convenience, llvm_module provides pid_to_index which maps ParIds to indices into the par_values
+parameter.
+
+
+In the llvm module, the following functions are usable:
+
+double exp_function(double):
+    exponential
+    
+void add_with_coeff(double coeff, double * data, const double * rhs_data, int n):
+   computes data[i] += c * rhs_data[i] for i == 0..n-1 data and rhs_data must be 16-byte aligned.
+
+in addition to those functions, there are optimized utility functions for multiplying and adding vectors.
+These are the llvm_module:emit_* functions.
+
+

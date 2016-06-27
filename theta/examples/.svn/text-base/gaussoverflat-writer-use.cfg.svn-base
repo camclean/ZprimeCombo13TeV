@@ -1,0 +1,41 @@
+@include "gaussoverflat-include.cfg"
+
+mle = {
+    type = "mle";
+    name = "mle";
+
+    //use minuit as minimizer and source of errors:
+    minimizer = "@myminuit";
+
+    //write out result for both parameters:
+    parameters = ("s", "b");
+    
+    write_covariance = true;
+    write_ks_ts = true;
+};
+
+myminuit = {
+   type = "root_minuit";
+};
+
+main = {
+   data_source = {
+      type = "replay_toys";
+      name = "source";
+      input_database = {
+         type = "sqlite_database_in";
+         filename = "gaussoverflat-writer.db";
+      };
+   };
+   model = "@gaussoverflat";
+   producers = ("@mle");
+   n-events = 500;
+   output_database = {
+        type = "sqlite_database";
+        filename = "gaussoverflat-writer-use.db";
+    };
+};
+
+options = {
+  plugin_files = ("$THETA_DIR/lib/core-plugins.so", "$THETA_DIR/lib/root.so");
+};

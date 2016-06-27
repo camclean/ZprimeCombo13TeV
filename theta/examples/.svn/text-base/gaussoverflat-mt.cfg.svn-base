@@ -1,0 +1,35 @@
+// run_mt test
+
+@include "gaussoverflat-include.cfg"
+
+intervals = {
+   type = "mcmc_quantiles";
+   name = "intervals";
+   parameter = "s";
+   quantiles = [0.16, 0.84];
+   iterations = 10000;
+};
+
+
+main = {
+   type = "run_mt";
+   n_threads = 10;
+   data_source = {
+      type = "model_source";
+      model = "@main.model";
+      name = "source";
+      rnd_gen = { seed = 1; };
+   };
+   model = "@gaussoverflat";
+   producers = ("@intervals");
+   n-events = 100;
+   
+   output_database = {
+      type = "sqlite_database";
+      filename = "gaussoverflat-mt.db";
+   };
+};
+
+options = {
+  plugin_files = ("$THETA_DIR/lib/core-plugins.so", "$THETA_DIR/lib/root.so");
+};

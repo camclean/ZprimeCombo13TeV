@@ -1,0 +1,159 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Statistics HATS@LPC Exercises &mdash; Statistic Exercises 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Statistic Exercises 1.0 documentation" href="#" />
+    <link rel="next" title="Technical Setup" href="setup.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="setup.html" title="Technical Setup"
+             accesskey="N">next</a></li>
+        <li><a href="#">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="statistics-hats-lpc-exercises">
+<h1>Statistics <a class="reference external" href="mailto:HATS&#37;&#52;&#48;LPC">HATS<span>&#64;</span>LPC</a> Exercises<a class="headerlink" href="#statistics-hats-lpc-exercises" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>External links:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="https://indico.cern.ch/event/315002/">Indico Agenda of Statistics HATS&#64;LPC 2014</a>.</li>
+<li>documentation of theta and theta-auto <a class="reference external" href="http://theta-framework.org/">http://theta-framework.org/</a></li>
+</ul>
+</dd>
+<dt>The exercises should be done in the following order:</dt>
+<dd><ul class="first last simple">
+<li>Day 1 (Hypothesis Tests): After the <a class="reference internal" href="setup.html#setup"><em>Technical Setup</em></a>, go on to <a class="reference internal" href="ex1.html#ex1"><em>Exercise 1: Hypothesis tests and p-values</em></a></li>
+<li>Day 2 (Intervals and Limits): <a class="reference internal" href="ex2.html#ex2"><em>Exercise 2: (Modified) Frequentist Limits</em></a> and <a class="reference internal" href="ex3.html#ex3"><em>Exercise 3: Bayesian Inference</em></a></li>
+<li>Day 3 (Advanced Models): <a class="reference internal" href="ex4.html#ex4"><em>Exercise 4: Real Analysis (theta)</em></a> and <a class="reference external" href="https://twiki.cern.ch/twiki/bin/viewauth/CMS/TprimeTheta">Tprime tutorial</a></li>
+</ul>
+</dd>
+</dl>
+<p>If you completed all exercises of the given day before the time is up, feel free to look at <a class="reference internal" href="extras.html#extras"><em>Bonus Questions</em></a> for more.</p>
+<p>Related exercises using the RooStats-based &#8220;combine&#8221; tool can be found on the <a class="reference external" href="https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideCMSDataAnalysisSchoolStatistics2014">CMSDAS Statistics page</a>.</p>
+<div class="section" id="complete-table-of-contents">
+<h2>Complete Table of Contents<a class="headerlink" href="#complete-table-of-contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Technical Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#test-the-setup">Test the Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ex1.html">Exercise 1: Hypothesis tests and p-values</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ex1.html#a-analytical-p-values-for-a-counting-experiment">1.a. Analytical p-values for a counting experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex1.html#b-toy-mc-method-for-p-value">1.b. Toy MC method for p-value</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex1.html#c-toy-mc-method-with-systematic-uncertainty">1.c. Toy MC method with systematic uncertainty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex1.html#d-toy-mc-method-for-shape-model-with-theta">1.d. Toy MC method for shape model (with theta)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ex2.html">Exercise 2: (Modified) Frequentist Limits</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ex2.html#a-testing-a-single-point-s0">2.a. Testing a single point s0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex2.html#b-neyman-belt">2.b. Neyman Belt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex2.html#c-cls-method">2.c. CLs method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex2.html#d-toy-mc-method">2.d. Toy MC method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex2.html#e-cls-limits-for-the-shape-model-with-theta">2.e. CLs limits for the shape model (with theta)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ex3.html">Exercise 3: Bayesian Inference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ex3.html#a-posterior-for-the-counting-experiment">3.a. Posterior for the counting experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex3.html#b-posterior-for-the-shape-model-using-theta">3.b. Posterior for the shape model (using theta)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex3.html#c-limits-from-posteriors">3.c. Limits from posteriors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex3.html#d-prior-sensitivity-analysis">3.d. Prior Sensitivity Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ex4.html">Exercise 4: Real Analysis (theta)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ex4.html#a-building-and-inspecting-models">4.a. Building and Inspecting Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex4.html#b-maximum-likelihood-fits">4.b. Maximum likelihood fits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex4.html#c-asymptotic-z-value">4.c. Asymptotic Z-value</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex4.html#d-limits">4.d. Limits</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="extras.html">Bonus Questions</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Statistics HATS&#64;LPC Exercises</a><ul>
+<li><a class="reference internal" href="#complete-table-of-contents">Complete Table of Contents</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="setup.html"
+                        title="next chapter">Technical Setup</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="setup.html" title="Technical Setup"
+             >next</a></li>
+        <li><a href="#">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Jochen Ott.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

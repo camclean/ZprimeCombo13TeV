@@ -1,0 +1,35 @@
+@include "onoff.cfg"
+
+hypotest = {
+    type = "deltanll_hypotest";
+    name = "hypotest";
+    minimizer = {
+        type = "root_minuit";
+    };
+    signal-plus-background-distribution = "@onoff.parameter-distribution";
+    background-only-distribution = {
+        type = "flat_distribution";
+        mu_s = {
+            range = [0.0, 0.0];
+        };
+        mu_b = "@onoff.parameter-distribution.mu_b";
+        tau = "@onoff.parameter-distribution.tau";
+    };
+};
+
+options = {
+    plugin_files = ("../../lib/core-plugins.so", "../../lib/root.so");
+};
+
+main = {
+    output_database = {
+        type = "sqlite_database";
+        filename = "onoff_pl.db";
+    };
+    data_source = "@data_source";
+
+    model = "@onoff";
+    producers = ("@hypotest");
+    log-report = false;
+    n-events = 1;
+};

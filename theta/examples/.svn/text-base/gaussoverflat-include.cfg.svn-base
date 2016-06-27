@@ -1,0 +1,71 @@
+//define one obervable named "mass" with range [500, 1500] and 200 bins.
+observables = {
+   mass = {
+       range = (500.0, 1500.0);
+       nbins = 200;
+   };
+};
+     
+//the parameters of the model are the number of signal and
+// background events after the selection
+parameters = ("s", "b");
+
+gaussoverflat = {
+    //specification of the "mass" observable
+    mass = {
+        //gaussian signal:
+        signal = { // "signal" is a name you can choose freely here
+            coefficient-function = {type = "multiply"; factors = ("s");};
+            histogram = {
+                type = "fixed_gauss";
+                // In this case, we need to specify the observable here again,
+                // as this defines the range and binning of the histogram (and
+                // the configuration of the histogram works exactly the same
+                // outside of an observable specification).
+                observable = "mass";
+                // the sum of bin entries should be 1.0 (such that "s" is the
+                // number of events, not some multiple of that).
+                normalize_to = 1.0;
+                mean = 1000.0;
+                width = 250.0;
+            };
+        };
+        
+        //flat background:
+        bkg = {
+            coefficient-function = {type = "multiply"; factors = ("b"); };
+            histogram = {
+                type = "fixed_poly";
+                observable = "mass";
+                normalize_to = 1.0;
+                //coefficients of the polynomial, starting with x^0
+                coefficients = [1.0];
+            };
+        };
+    };
+
+    parameter-distribution = {
+        type ="product_distribution";
+        distributions =("@b-dist",
+            {
+             type = "flat_distribution";
+             s = {
+                range = (0.0, "inf");
+                fix-sample-value = 200.0;
+            };
+	});
+    };
+};
+
+b-dist = {
+             type = "gauss";
+             parameter = "b";
+             mean = 1000.0;
+             width = 200.0;
+             range = (0.0, "inf");
+            };
+
+
+/*options = {
+  plugin_files = ("$THETA_DIR/lib/core-plugins.so", "$THETA_DIR/lib/root.so");
+};*/

@@ -1,0 +1,11 @@
+execute_process(COMMAND llvm-config-3.1 --cppflags OUTPUT_VARIABLE llvm_cflags)
+execute_process(COMMAND llvm-config-3.1 --libfiles all OUTPUT_VARIABLE llvm_libs)
+string(STRIP "${llvm_cflags}" llvm_cflags)
+string(STRIP "${llvm_libs}" llvm_libs)
+string(REPLACE " " ";" llvm_libs ${llvm_libs})
+
+file(GLOB llvm_sources *.cpp)
+add_library(llvm-plugins MODULE ${llvm_sources})
+target_link_libraries(llvm-plugins ${llvm_libs})
+add_custom_command(TARGET llvm-plugins POST_BUILD COMMAND mv ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libllvm-plugins.so ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/llvm-plugins.so)
+set_property(TARGET llvm-plugins APPEND PROPERTY COMPILE_FLAGS "${llvm_cflags}")

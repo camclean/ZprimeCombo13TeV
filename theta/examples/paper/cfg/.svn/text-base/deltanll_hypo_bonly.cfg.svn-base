@@ -1,0 +1,46 @@
+@include "exmodel.cfg"
+
+hypotest = {
+   type = "deltanll_hypotest";
+   name = "hypotest";
+   minimizer = { type = "root_minuit"; };
+   background-only-distribution = {
+        type = "product_distribution";
+        distributions = ("@mu_s-zero", "@mu_b-flat");
+   };
+   
+   signal-plus-background-distribution = {
+       type = "product_distribution";
+       distributions = ("@mu_s-flat", "@mu_b-flat");
+   };
+};
+
+mu_s-zero = {
+   type = "delta_distribution";
+   mu_s = 0.0;
+};
+
+
+main = {
+   data_source = {
+      name = "data_source";
+      type = "model_source";
+      model = "@example_model";
+      override-parameter-distribution = {
+         type = "delta_distribution";
+         mu_s = 0.0;
+         mu_b = 20.0;
+      };
+   };
+   model = "@example_model";
+   producers = ("@hypotest");
+   n-events = 1000000;
+   output_database = {
+      type = "sqlite_database";
+      filename = "results/deltanll_hypo_bonly.db";
+   };
+};
+
+options = {
+  plugin_files = ("../../lib/core-plugins.so", "../../lib/root.so");
+};

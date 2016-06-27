@@ -1,0 +1,161 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Technical Setup &mdash; Statistic Exercises 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Statistic Exercises 1.0 documentation" href="index.html" />
+    <link rel="next" title="Exercise 1: Hypothesis tests and p-values" href="ex1.html" />
+    <link rel="prev" title="Statistics HATS@LPC Exercises" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ex1.html" title="Exercise 1: Hypothesis tests and p-values"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="index.html" title="Statistics HATS@LPC Exercises"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="technical-setup">
+<span id="setup"></span><h1>Technical Setup<a class="headerlink" href="#technical-setup" title="Permalink to this headline">¶</a></h1>
+<p>The exercises make use of python and the <a class="reference external" href="http://scipy.org/">scipy library</a> and the <a class="reference external" href="http://theta-framework.org/">theta</a> program.</p>
+<p>To make the theta installation easier, it is recommended to setup CMSSW, such that theta can use dependencies from CMSSW.
+Setting up CMSSW, obtaining and compiling theta is then done with these commands:</p>
+<div class="highlight-python"><pre># 1. setup CMSSW
+scram p CMSSW CMSSW_5_3_19
+# setup environment variables
+cd CMSSW_5_3_19
+cmsenv
+
+# 2. checkout and compile theta:
+cd $HOME/your/favorite/location
+svn co https://ekptrac.physik.uni-karlsruhe.de/public/theta/tags/testing theta
+cd theta
+make
+
+# 3. setup PATH to find theta-auto.py (in theta/utils2)
+export PATH=$HOME/your/favorite/location/theta/utils2</pre>
+</div>
+<p>Note that you should run the <tt class="docutils literal"><span class="pre">cmsenv</span></tt> and the <tt class="docutils literal"><span class="pre">export</span> <span class="pre">PATH</span></tt> line every time you login; all others only once to get started.</p>
+<p>To obtain the scripts for the exercise, copy the content of  <tt class="docutils literal"><span class="pre">/afs/cern.ch/user/j/jott/public/hatslpc2014</span></tt> into one of your directories (I assume you use <tt class="docutils literal"><span class="pre">$HOME/hatslpc2014</span></tt>):</p>
+<div class="highlight-python"><pre>cp -a /afs/cern.ch/user/j/jott/public/hatslpc2014 $HOME</pre>
+</div>
+<div class="section" id="test-the-setup">
+<h2>Test the Setup<a class="headerlink" href="#test-the-setup" title="Permalink to this headline">¶</a></h2>
+<p>To test that your setup is working, go to the directory created in the last step above (<tt class="docutils literal"><span class="pre">$HOME/hatslpc2014</span></tt>) and execute the &#8220;exercise 0&#8221; script by calling <tt class="docutils literal"><span class="pre">theta-auto.py</span></tt> like this:</p>
+<div class="highlight-python"><pre>cd $HOME/hatslpc2014
+theta-auto.py ex0.py</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">ex0.py</span></tt> script is used for testing only here; it contains a few hints that might be useful if you are new to python. Otherwise, you do not need to care about the contents of <tt class="docutils literal"><span class="pre">ex0.py</span></tt>.</p>
+</div>
+<p>If everything is fine, this should produce an output similar to this one (<tt class="docutils literal"><span class="pre">XXX</span></tt> is some user-dependent directory):</p>
+<div class="highlight-python"><pre>Hello World!
+Hello World from indented code.
+called print_s with s=
+called print_s with s=hello world
+list items 0, 2: 1 3
+list items:
+1
+2
+3
+[INFO]  Running 'XXX/dnll-toys:0.0-s-d193c794a1.cfg --nowarn'
+progress:   1000 / 1000   [100.0%]   errors:      0 [  0.0%]
+Total number of likelihood evaluations: 23064
+[INFO]  workdir is XXX</pre>
+</div>
+<p>You should also see that a file <tt class="docutils literal"><span class="pre">test.pdf</span></tt> has been created.</p>
+<p>You can now get started with the exercises by reading tyhe instructions in these pages and editing the <tt class="docutils literal"><span class="pre">exX.py</span></tt> files. These files are executed via</p>
+<div class="highlight-python"><pre>theta-auto.py exX.py</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Technical Setup</a><ul>
+<li><a class="reference internal" href="#test-the-setup">Test the Setup</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Statistics HATS&#64;LPC Exercises</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ex1.html"
+                        title="next chapter">Exercise 1: Hypothesis tests and p-values</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ex1.html" title="Exercise 1: Hypothesis tests and p-values"
+             >next</a></li>
+        <li class="right" >
+          <a href="index.html" title="Statistics HATS@LPC Exercises"
+             >previous</a> |</li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Jochen Ott.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

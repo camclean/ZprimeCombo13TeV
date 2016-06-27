@@ -1,0 +1,39 @@
+@include "exmodel.cfg"
+
+mle = {
+   type = "mle";
+   name = "mle";
+   minimizer = { type = "root_minuit"; };
+   parameters = ("mu_s");
+};
+
+
+mu_s-sample = {
+   type = "flat_distribution";
+   mu_s = {
+       range = [0.0, 30.0];
+    };
+};
+               
+main = {
+   data_source = {
+      name = "data_source";
+      type = "model_source";
+      model = "@example_model";
+      override-parameter-distribution = {
+            type = "product_distribution";
+            distributions = ("@mu_b-flat", "@mu_s-sample");
+      };
+   };
+   model = "@example_model";
+   producers = ("@mle");
+   n-events = 200000;
+   output_database = {
+      type = "sqlite_database";
+      filename = "results/neyman_mle.db";
+   };
+};
+
+options = {
+  plugin_files = ("../../lib/core-plugins.so", "../../lib/root.so");
+};

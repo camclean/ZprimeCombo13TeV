@@ -1,0 +1,109 @@
+.. _ex1:
+
+*****************************************
+Exercise 1: Hypothesis tests and p-values
+*****************************************
+
+This exercise will repeat common concepts of hypothesis test (p-value) from the lecture
+for a simplified experiment in high-energy physics: suppose that after some event selection, a mean background of b is expected,
+so the number of data events n follows a Poisson distribution with mean b in absence of signal (this is the null hypothesis
+of the hypothesis test). For a non-zero signal s, the number of events follows a Poisson distribution with mean s+b.
+
+Reminder: The p-value is the probability under the null hypothesis to observe data "at least as extreme" as the data actually observed.
+A real-valued test statistic is used to specify what "extreme" means. Here,
+the number of observed events itself is already good test statistic, so the p-value is the probability
+to observe at least as many events as actually observed, if the Poisson mean is b ("background-only").
+
+Open your copy of the file ``ex1.py`` to edit it and follow the instructions on this page. If you are stuck, you can ask or look at ``ex1-solutions.py``.
+
+1.a. Analytical p-values for a counting experiment
+==================================================
+
+For different values of the background b, determine the p-value for
+an observation of at least nobs by numerical evaluation of the analytic formula.
+For b=5.2 and nobs between 5 and 20, this is implemented in the method "ex1a" in the file "ex1.py"
+(comment out the call to ex1a in the code and execute ex1.py as in Exercise 0).
+  
+**Questions**:
+ i. What are the p-values and Z-values for
+  
+  * b=10000 and nobs=10000,
+  * b=10000 and nobs=10100,
+  * b=10000 and nobs=10200,
+  * b=10000 and nobs=9900?
+  
+ ii. Compare the results to the normal approximation
+ 
+ .. math:: Z_a = \frac{s}{\sqrt b} = \frac{n - b}{\sqrt b}
+
+ .. note:: The code for calculating and printing :math:`Z_a` is included in ``ex1.py``, you only have to comment it in.
+ .. splitting comment
+
+ iii. (Bonus question): Use the likelihood-ratio formula to compute the asymptotic Z-value based on Wilks' Theorem. In general, the asymptotic Z-value is given by
+
+ .. math:: Z_w = \sqrt{2 \Delta \log L}
+ .. splitting comment
+
+ where :math:`\Delta \log L` is the difference of log-likelihood values for the null (background-only) and the maximum of the alternative (signal+background)
+ hypotheses. The likelihood function for the counting experiment is a Poisson probability around :math:`s+b`, where :math:`b` is a constant and :math:`s \geq 0` is the only model
+ parameter. You should be able to show that -- apart from an unimportant constant term -- the log-likelihood function is
+   
+ .. math:: \log L(s | n) = n \log (s + b) - (s + b)
+
+ which has a maximum for :math:`\hat{s} = \max(0, n - b)`. Thus, :math:`Z_w` is given by
+   
+ .. math:: Z_w = \sqrt{2\left( n\log \frac{\hat{s} + b}{b} - \hat{s}\right)}
+
+ Compare the result of :math:`Z_w` with :math:`Z_a` and the analytical result from i. and ii.
+   
+ .. note:: The code for calculating :math:`Z_w` is included in ``ex1.py`` in the method ``calc_Z_w``. Call it from the ``nobs`` loop in the method ``ex1a``.
+ 
+1.b. Toy MC method for p-value
+==============================
+
+As in 1.a., we compute p-values for the counting experiment, but this time using a Monte-Carlo
+method. First, become familiar with the code by commenting out the parts that generate and print/plot the generated Poisson numbers. Then, go through the 
+method ``get_pvalue`` and understand how it works.
+  
+**Question**: What is the p-value and Z-value for b=100 and nobs=120? Compare the result to the normal approximation
+  
+.. math::    Z_a = \frac{s}{\sqrt{b}}
+ 
+.. note::
+
+   You need to set the number of toys high enough to reach a reasonable accuracy for the p-value.
+   To get the error on p, either re-execute the script a number of times -- this will re-calculate the p-value using a different random seed.
+   A better method is to use an error estimate for p which, e.g. by using the normal approximation for the Binomial error,
+   :math:`\Delta p = \sqrt{\frac{p(1-p)}{n_{\rm toy}}}`
+
+1.c. Toy MC method with systematic uncertainty
+==============================================
+
+Compute the p-value with the MC method for a statistical model with an uncertainty on the background with the prior-average ("hybrid") method.
+  
+As in 1.b., print (or plot) some generated toy data values. Also try a large relative uncertainty
+on the Poisson mean (e.g. 100%). You will see the code fail. Why? Fix the code as you think is appropriate.
+  
+**Question**: What is the p-value and Z-value for b=10000, delta_b=50 and nobs = 10200? Compare
+the results to the normal approximation :math:`Z_a = \frac{s}{\sqrt{b + (\Delta b)^2}}.`
+
+.. note:: This shows that including systematic uncertainties in the p-value calculation is rather straight-forward for the Monte-Carlo method, as only
+  the toy generation step needs changing, whereas an analytical solution for the same problem would be very hard.
+
+
+.. _ex1d:
+
+1.d. Toy MC method for shape model (with theta)
+===============================================
+
+We now use the "theta" program for generating the likelihood-ratio test statistic
+distribution for the shape model introduced in the lecture. Follow the instructions in the code
+to generate the likelihood ratio test statistic for a background-only toy ensemble and for data in order to calculate the
+p-value and Z-value for the signal mass of 500; if you remember the lecture, this was a 3.1sigma effect.
+   
+The toy data with the 3.1sigma effect is generated with the value for the random seed of 50.
+Try out other seeds as an argument for ``build_shape_model`` (defined and documented in common.py).
+Also try different values for the other arguments to ``build_shape_model`` to include a background rate and shape uncertainty
+and re-generate test statistic distributions for those cases.
+   
+**Question**: How does the p-value change if including both, a 10% rate uncertainty on the background and the shape uncertainty?

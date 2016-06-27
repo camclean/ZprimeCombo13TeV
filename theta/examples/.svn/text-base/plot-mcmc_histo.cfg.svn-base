@@ -1,0 +1,7 @@
+// to be used by root/histos on examples/gaussoverflat-mcmc_histo.cfg
+outfile = "mcmc_posterior.root";
+
+mcmc_posterior = {
+   histo_query = "select mcmc_histo__posterior_s from products";
+   file = "gaussoverflat-mcmc_histo.db";
+};

@@ -1,0 +1,24 @@
+outfile = "gaussoverflat.root";
+
+log_likelihood_ratio = { // "lieklihood_ratio" will be the name in the output rootfile
+   file = "gaussoverflat.db"; //input database file produced by a run of theta
+   query = "select hypotest__nll_b - hypotest__nll_sb from products";
+   nbins = 300;
+   range = [0.0, 30.0];
+};
+
+
+diced_s = {
+   file = "gaussoverflat.db";
+   query = "select source__s from products";
+   nbins = 200;
+   range = [0.0, 400.0];
+};
+
+diced_b = {
+   file = "gaussoverflat.db";
+   query = "select source__b from products";
+   nbins = 200;
+   range = [500.0, 1500.0];
+};
+

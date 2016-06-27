@@ -1,0 +1,107 @@
+*****************************************
+Exercise 2: (Modified) Frequentist Limits
+*****************************************
+
+
+As in exercise 1, here we will also mainly use the counting experiment as statistical model in which
+the data are assumed to follow a Poisson distribution around s+b, where in the simplest case, b is a known constant
+and s is the only model parameter; we want to infer a confidence interval about the model parameter s.
+
+The Neyman construction for upper limits can be seen as a hypothesis test inversion: The point s=s0
+is included in the 95% C.L. interval if (and only if) one cannot exclude this point in a hypothesis test testing
+the null hypothesis s=s0 versus the alternative s<s0 with level alpha=0.05. For a counting experiment, the test
+statstic is again n. However, now *small* values of n mean incompatibility with the null hypothesis s=s0.
+
+
+**2.a. Testing a single point s0**
+Calculate the p-value for the hypothesis test with null hypothesis s=s0 versus the alternative s<s0 for given b, s0, and number
+of observed events n with the method ``get_pvalue``, using one of the ``poisson_p`` methods defined in ``common.py``. Note that
+in contrary to searching for a positive signal, small values for n are regarded as evidence against the null hypothesis s=s0.
+
+**Questions**:
+
+ i. For fixed values of b=5.2 and n=6, what are the p-values for s0=0,1,5, and 10?
+ ii. Which of those values for s0 is part of the 95% C.L. interval for s?
+ iii. Completing the implementation of ``scan_s0_pvalue`` (and calling it with appropriate arguments), find the 95% C.L. upper limit for s in case of b=5.2 and n=6. Also look at the created file "p-vs-s.pdf", where you can read off the limit as well.
+ iv. Using ``scan_s0_pvalue``: what is the frequentist 95% C.L. upper limit for a background-free counting experiment in case no events have been observed?
+
+
+**2.b. Neyman Belt**
+The Neyman belt is defined in the "n vs. s" plane. For a given value of s, it contains a range of values n from nmin...nmax such that
+the probability to observe an event count n with n>=nmin and n<=nmax is >=1-alpha where alpha is the type-I error of the hypothesis test (and
+1-alpha is the confidence level for the confidence interval). Using the belt, one can read off the upper limits for different values
+of the obersved number of events n.
+
+There is some arbitrariness picking the range nmin...nmax and a "ordering rule" is required (see lecture). For upper
+limits, one uses nmax=infinity. The method ``find_nmin_poisson(pmin, mu)`` finds the value for nmin such that the probability to observe
+n>=nmin is at least pmin.
+
+By implementing the missing parts of ``construct_belt``, get the plot for the Neyman belt for b=5.2 and s between 0 and 15.
+
+**Question**: Reading the limit off the created pdf plot, what is the 95% C.L. upper limit for n=6, n=10, and n=1?
+
+
+**2.c. CLs method**
+In the previous exercise 2.b., you've seen that if the number of observed events is very low, the resulting interval
+can be empty. This happens if the probability to observe such a low event count is low even in case of s=0. The CLs
+method prevents such statements with no sensitivity by not using the p-value but rather the quantity
+
+.. math:: CL_s = \frac{p_{s+b}}{p_b}
+
+and citing as limit the value for s for which CLs = alpha (=0.05 for 95% upper limits).
+
+In this equation, :math:`p_{s+b}` is the p-value as used in 2.a. and 2.b., while :math:`p_b` is the probability
+to observe such a low event count for background only.
+
+Implement ``get_pvalue_bonly``, which is required for the ``get_cls`` method (which is already implemented). Using
+``scan_s0_pvalue`` as template, implement the corresponding method ``scan_s0_clsvalue`` which prints (and plots) the CLs
+value as a function of s for given b and n.
+
+**Question**: What is the CLs 95% C.L. upper limit using the CLs method for b=5.2 and n=6, n=10, and n=1?
+
+
+**2.d. Toy MC method**
+We now will implement a Monte-Carlo method for the CLs limit construction, in analogy to the toy-based p-value calculation in exercise 1. This will
+allow to use the "Bayesian average" method to include systematic uncertainties on the background b.
+
+Using the MC method entails replacing the numerical methods by toy methods. Look at the comments in the code
+how the method signature looks like. Note that some methods are very similar to the ones from exercise 1;
+be careful, however, as -- in contrast to exercise 1 -- the hypothesis test tests something different
+and now *small* nobs are considered a deviation from the null hypothesis s=s0.
+
+If you are stuck, remember that the file ``ex2-solutions.py`` contains a solution.
+
+**Questions**:
+
+  i. Try to reproduce -- within the uncertainties due to finite ntoy -- the result from 2.c., namely for b=5.2, n=6 without background uncertainty.
+  ii. Re-evaluate the limit using a 50% uncertainty on b, i.e. delta_b=2.6. What is the (approximate) upper limit in this case?
+
+.. note::
+ As the method is toy-based, the CLs values have limited accuracy due to the limited number of toys. Increasing the number of toys,
+ however, increases the time consumption. Here, use error propagation on CLs to judge "by eye" how good the result is (see ``ex2-solutions.py``
+ for an implementation of this error propagation). Fully-fledged implementations of the CLs method adaptively increase the number of toys until a desired accuracy on the limit is reached. 
+
+
+**2.e. CLs limits for the shape model (with theta)**
+For the shape model, the likelihood ratio test statistic is used in the hypothesis test to test mu=mu0 versus mu<mu0 (see lecture), Apart from that,
+the implementation of the CLs method in theta is very similar to what was outlined in exercise 2.d.: A scan in mu0 is performed and for a fixed mu0,
+
+1. The test statistic value
+  .. math:: t_{\mu_0} = \log\frac{\max_{\theta\in H_0} L(\theta|d)}{\max_{\theta\in H_1} L(\theta|d)}
+  
+  is calculated for data, :math:`t_{\mu_0}^{\rm obs}`, where :math:`H_0` refers to the null hypothesis :math:`\mu=\mu_0` and :math:`H_1` to :math:`\mu < \mu_0` (see lecture).
+2. Toys are generated according to the "s+b" model (i.e., :math:`\mu = \mu_0`). For each toy, the test statistic is calculated as defined in 1. The fraction of toys with :math:`t_{\mu_0} \geq t_{\mu_0}^{\rm obs}` is an estimate for the p-value :math:`p_{s+b}`
+3. Toys are generated according to the "b"-only model (i.e., :math:`\mu = 0`) to determine the p-value :math:`p_{b}`
+4. The CLs value is calculated, :math:`CL_s = \frac{p_{s+b}}{p_b}`, including error propagation
+5. The curve "CLs versus mu0" is fitted with an exponential in some range where CLs is about 0.05 to get the 95% C.L. upper limit, propagating the CLs-errors on the limit.
+6. If the error on the limit (from the limited number of toys) is too large, make new toys at some value mu0 and start over at 1.
+
+Most of these details are hidden entirely to the user of the software package, who can use it as a "black box". Look at the comments in the code in ``ex2.py``
+to evaluate CLs limits with theta for the shape model. The counter you see are the total number of toys (both "s+b" and "b-only").
+
+**Questions**:
+
+  * What is the 95% C.L. upper limit that theta calculates for the shape model?
+  * What is the limit if you include both a 10% rate and a shape uncertainty on the background?
+  
+.. note:: You might notice that theta creates a "debuglog" text file in which you can see details of the CLs calculation as outlined above, e.g. at which value of mu the toys are performed (and how many), what the resulting CLs value (and uncertainty) is, what the result of the curve fitting is, etc. If you are interested in the dirty details, you can try to understand what theta actually does by reading this file.

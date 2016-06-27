@@ -1,0 +1,4 @@
+This directory contains all configuration files and scripts
+to reproduce the plots in the theta paper.
+
+See additional comments in execute-all.sh

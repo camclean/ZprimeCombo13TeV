@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+
+import ROOT
+
+infile = ROOT.TFile("../../../utils/examples/zprime/histograms.root", "read")
+outfile = ROOT.TFile("ex4input.root", "recreate")
+for k in infile.GetListOfKeys():
+     s = k.GetName()
+     keep = '__zp' not in s or '__zp1000' in s or '__zp2000' in s or '__zp3000' in s
+     if keep:
+         histo = k.ReadObj().Clone()
+         histo.SetDirectory(outfile)
+         histo.Write()
+
+outfile.Close()        

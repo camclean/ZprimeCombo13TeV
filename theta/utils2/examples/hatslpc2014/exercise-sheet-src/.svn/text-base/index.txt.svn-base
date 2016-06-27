@@ -1,0 +1,31 @@
+*****************************
+Statistics HATS@LPC Exercises
+*****************************
+
+External links:
+ * `Indico Agenda of Statistics HATS@LPC 2014 <https://indico.cern.ch/event/315002/>`_.
+ * documentation of theta and theta-auto http://theta-framework.org/
+
+
+The exercises should be done in the following order:
+ * Day 1 (Hypothesis Tests): After the :ref:`setup`, go on to :ref:`ex1`
+ * Day 2 (Intervals and Limits): :ref:`ex2` and :ref:`ex3`
+ * Day 3 (Advanced Models): :ref:`ex4` and `Tprime tutorial <https://twiki.cern.ch/twiki/bin/viewauth/CMS/TprimeTheta>`_
+
+If you completed all exercises of the given day before the time is up, feel free to look at :ref:`extras` for more.
+
+Related exercises using the RooStats-based "combine" tool can be found on the `CMSDAS Statistics page <https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideCMSDataAnalysisSchoolStatistics2014>`_.
+
+
+Complete Table of Contents
+==========================
+
+.. toctree::
+   :maxdepth: 2
+   
+   setup
+   ex1
+   ex2
+   ex3
+   ex4
+   extras

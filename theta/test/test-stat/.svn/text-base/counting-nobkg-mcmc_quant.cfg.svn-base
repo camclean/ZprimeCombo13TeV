@@ -1,0 +1,38 @@
+@include "counting-nobkg.cfg"
+
+mcmc = {
+    type = "mcmc_quantiles";
+    name = "mcmc";
+    parameter = "Theta";
+    quantiles = [0.5, 0.16, 0.84, 0.95];
+    iterations = 10000;
+};
+
+options = {
+    plugin_files = ("$THETA_DIR/lib/core-plugins.so");
+};
+
+writer = {
+    type = "pseudodata_writer";
+    name = "writer";
+    observables = ("o");
+    write-data = false;
+};
+
+main = {
+    output_database = {
+        type = "sqlite_database";
+        filename = "counting-nobkg-mcmc.db";
+    };
+    data_source = {
+        name = "data_source";
+    	type = "model_source";
+    	model = "@counting";
+    	rnd_gen = {seed = 123; };
+    };    
+    
+    model = "@counting";
+    producers = ("@mcmc", "@writer");
+    log-report = false;
+    n-events = 50;
+};

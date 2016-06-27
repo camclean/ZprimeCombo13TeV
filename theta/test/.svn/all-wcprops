@@ -1,0 +1,197 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/public/theta/!svn/ver/364/tags/testing/test
+END
+test-sysrate.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/public/theta/!svn/ver/254/tags/testing/test/test-sysrate.cpp
+END
+test-ex.cxx
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/public/theta/!svn/ver/204/tags/testing/test/test-ex.cxx
+END
+test-histogram.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/public/theta/!svn/ver/325/tags/testing/test/test-histogram.cpp
+END
+lib.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/public/theta/!svn/ver/325/tags/testing/test/lib.py
+END
+test-cfg.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/public/theta/!svn/ver/297/tags/testing/test/test-cfg.cpp
+END
+test-utils.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/public/theta/!svn/ver/325/tags/testing/test/test-utils.cpp
+END
+test.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/public/theta/!svn/ver/188/tags/testing/test/test.cpp
+END
+test-codegen.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/public/theta/!svn/ver/325/tags/testing/test/test-codegen.cpp
+END
+test-matrix.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/public/theta/!svn/ver/254/tags/testing/test/test-matrix.cpp
+END
+test-functions.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/public/theta/!svn/ver/363/tags/testing/test/test-functions.cpp
+END
+test-data.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/public/theta/!svn/ver/254/tags/testing/test/test-data.cpp
+END
+test-newton.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/public/theta/!svn/ver/363/tags/testing/test/test-newton.cpp
+END
+test-atomic.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/public/theta/!svn/ver/327/tags/testing/test/test-atomic.cpp
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/public/theta/!svn/ver/359/tags/testing/test/Makefile
+END
+test-distribution.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/public/theta/!svn/ver/325/tags/testing/test/test-distribution.cpp
+END
+test-histogram-function.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/public/theta/!svn/ver/363/tags/testing/test/test-histogram-function.cpp
+END
+lib.sh
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/public/theta/!svn/ver/188/tags/testing/test/lib.sh
+END
+test-histogram-with-uncertainties.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/public/theta/!svn/ver/325/tags/testing/test/test-histogram-with-uncertainties.cpp
+END
+utils.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/public/theta/!svn/ver/359/tags/testing/test/utils.cpp
+END
+testall.sh
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/public/theta/!svn/ver/325/tags/testing/test/testall.sh
+END
+utils.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/public/theta/!svn/ver/325/tags/testing/test/utils.hpp
+END
+bootstrap-testall.sh
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/public/theta/!svn/ver/197/tags/testing/test/bootstrap-testall.sh
+END
+test-exception.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/public/theta/!svn/ver/204/tags/testing/test/test-exception.cpp
+END
+test-model.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/public/theta/!svn/ver/364/tags/testing/test/test-model.cpp
+END
+test-sqlite.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/public/theta/!svn/ver/340/tags/testing/test/test-sqlite.cpp
+END
+test-minimizer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/public/theta/!svn/ver/254/tags/testing/test/test-minimizer.cpp
+END
+test-variables.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/public/theta/!svn/ver/327/tags/testing/test/test-variables.cpp
+END
+test-log2_dot.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/public/theta/!svn/ver/325/tags/testing/test/test-log2_dot.cpp
+END
+test-nl_gauss.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/public/theta/!svn/ver/261/tags/testing/test/test-nl_gauss.cpp
+END
+test-ex2.cxx
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/public/theta/!svn/ver/254/tags/testing/test/test-ex2.cxx
+END
+test-ex3.cxx
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/public/theta/!svn/ver/204/tags/testing/test/test-ex3.cxx
+END
+test-mt.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/public/theta/!svn/ver/194/tags/testing/test/test-mt.cpp
+END

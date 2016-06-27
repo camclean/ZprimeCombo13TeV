@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Exercise 1: Hypothesis tests and p-values &mdash; Statistic Exercises 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Statistic Exercises 1.0 documentation" href="index.html" />
+    <link rel="next" title="Exercise 2: (Modified) Frequentist Limits" href="ex2.html" />
+    <link rel="prev" title="Exercise 0: Test your environment; Introduction" href="ex0.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ex2.html" title="Exercise 2: (Modified) Frequentist Limits"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="ex0.html" title="Exercise 0: Test your environment; Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="exercise-1-hypothesis-tests-and-p-values">
+<h1>Exercise 1: Hypothesis tests and p-values<a class="headerlink" href="#exercise-1-hypothesis-tests-and-p-values" title="Permalink to this headline">¶</a></h1>
+<p>This exercise will repeat common concepts of hypothesis test (p-value) from the lecture
+for a typical &#8220;prototype&#8221; experiment in HEP: assume that after some event selection, you
+expect a mean background of b, so the number of data events n is assumed
+to follow a Poisson distribution with mean b in absence of signal (this is the null hypothesis
+of the hypothesis test). For a non-zero signal s, the data will follow a Poisson distribution
+around s+b.</p>
+<p>Reminder: The p-value is the probability to observe &#8220;at least as extreme&#8221; as  data, where
+a test statistic is used to specify what &#8220;extreme&#8221; actually means. Here,
+the number of observed events itself is already good test statistic, so the p-value is the probability
+to observe at least as many events as actually observed, if the Poisson mean is b (&#8220;background-only&#8221;).</p>
+<p><strong>1.a. Analytical p-values for a counting experiment</strong>: For different values of the background b, determine the p-value for
+an observation around (or above) b by numerical evaluation of the analytic formula.
+For b=5.2 and nobs between 5 and 20, this is implemented in the method &#8220;ex1a&#8221; in the file &#8220;ex1.py&#8221;
+(comment out the call to ex1a in the code and excute ex1.py as in Exercise 0).</p>
+<dl class="docutils">
+<dt><strong>Questions</strong>:</dt>
+<dd><ol class="first lowerroman simple">
+<li>What are the p-values and Z-values for</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>b=10000 and nobs=10000,</li>
+<li>b=10000 and nobs=10100,</li>
+<li>b=10000 and nobs=10200,</li>
+<li>b=10000 and nobs=9900?</li>
+</ul>
+</div></blockquote>
+<ol class="last lowerroman simple" start="2">
+<li>Compare the results to the normal approximation</li>
+</ol>
+</dd>
+</dl>
+<div class="math">
+<p><img src="_images/math/fe22f82ec8be7191601e59fb464edbdb61175382.png" alt="Z_a = \frac{s}{\sqrt b} = \frac{n - b}{\sqrt b}"/></p>
+</div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The code for calculating and printing Z_a is included in <tt class="docutils literal"><span class="pre">ex1.py</span></tt>, you only have to comment it in.</p>
+</div>
+<p><strong>1.b. Toy MC method for p-value</strong>: As in part a., compute p-values, but this time use the toy Monte-Carlo
+method. First, have a look at the generated Poisson data by commenting in the code blocks.</p>
+<p><strong>Question</strong>: What is the p-value and Z-value for b=100 and nobs=120? Compare the result to the normal approximation</p>
+<div class="math">
+<p><img src="_images/math/c6d93e134266643efa73d73b4a47486442e4494f.png" alt="Z_a = \frac{s}{\sqrt{b}}"/></p>
+</div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You need to set the number of toys high enough to reach a reasonable accuracy for the p-value.
+To get the error on p, either re-execute the script a number of times &#8211; this will re-calculate the p-value using a different random seed.
+A better method is to use an error estimate for p which, e.g. by using the normal approximaiton for the Binomial error,
+<img class="math" src="_images/math/827e3410817c031baadb4e0df8b0f93604a61945.png" alt="\Delta p = \sqrt{\frac{p(1-p)}{n_{\rm toy}}}"/></p>
+</div>
+<p><strong>1.c. Toy MC method with systematic uncertainty</strong>: Compute the p-value with the MC method
+for a statistical model with an uncertainty on the background with the prior-average method.</p>
+<p>As in 1.b., print (or plot) some generated toy data values. Also try a large relative uncertainty
+on the Poisson mean (e.g. 100%). You will see the code fail. Why? Fix the code as you think is appropriate.</p>
+<p><strong>Question</strong>: What is the p-value and Z-value for b=10000, delta_b=50 and nobs = 10200? Compare
+the results to the normal approximation <img class="math" src="_images/math/46241469dff7609b0cc62eb9ec665ae1512381ef.png" alt="Z_a = \frac{s}{\sqrt{b + (\Delta b)^2}}."/></p>
+<p><strong>1.d. Toy MC method for shape model (with theta)</strong>: We now use the &#8220;theta&#8221; program for generating the likelihood-ratio test statistic
+distribution for the shape model introduced in the lecture. Follow the instructions in the code
+to generate the likelihood ratio test statistic for a background-only toy ensemble and for data in order to calculate the
+p-value and Z-value for the signal mass of 500; if you remember the lecture, this was a 3.1sigma effect.</p>
+<p>The toy data with the 3.1sigma effect is generated with the value for the random seed of 50.
+Try out other seeds as an argument for <tt class="docutils literal"><span class="pre">build_shape_model</span></tt> (defined and documented in common.py).
+Also try different values for the other arguments to <tt class="docutils literal"><span class="pre">build_shape_model</span></tt> to include a background rate and shape uncertainty
+and re-generate test statistic distributions for those cases.</p>
+<p><strong>Question</strong>: How does the p-value change if including both, a 10% rate uncertainty on the background and the shape uncertainty?</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ex0.html"
+                        title="previous chapter">Exercise 0: Test your environment; Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ex2.html"
+                        title="next chapter">Exercise 2: (Modified) Frequentist Limits</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ex2.html" title="Exercise 2: (Modified) Frequentist Limits"
+             >next</a></li>
+        <li class="right" >
+          <a href="ex0.html" title="Exercise 0: Test your environment; Introduction"
+             >previous</a> |</li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Jochen Ott.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

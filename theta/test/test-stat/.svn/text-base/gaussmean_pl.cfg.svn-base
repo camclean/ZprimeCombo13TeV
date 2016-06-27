@@ -1,0 +1,35 @@
+@include "gaussmean_model.cfg"
+
+hypotest = {
+    type = "deltanll_hypotest";
+    name = "hypotest";
+    minimizer = {
+        type = "root_minuit";
+    };
+    signal-plus-background-distribution = "@gaussmean.parameter-distribution";
+    background-only-distribution = {
+       type = "product_distribution";
+       distributions = ("@mu_b-dist",
+        {
+              type = "delta_distribution";
+              mu_s = 0.0;
+        });
+    };
+};
+
+options = {
+    plugin_files = ("../../lib/core-plugins.so", "../../lib/root.so");
+};
+
+main = {
+    output_database = {
+        type = "sqlite_database";
+        filename = "gaussmean_pl.db";
+    };
+    data_source = "@data_source";
+
+    model = "@gaussmean";
+    producers = ("@hypotest");
+    log-report = false;
+    n-events = 1;
+};

@@ -1,0 +1,8 @@
+For a description of the tests, refer to the Testing page in the doxygen documentation.
+
+To run the tests, you need additional dependencies, namely:
+ * python
+ * sqlite3 for python
+ * scipy
+
+These should be available through packages on almost any distribution.

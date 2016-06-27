@@ -1,0 +1,196 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Exercise 2: (Modified) Frequentist Limits &mdash; Statistic Exercises 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Statistic Exercises 1.0 documentation" href="index.html" />
+    <link rel="next" title="Exercise 3: Bayesian Inference" href="ex3.html" />
+    <link rel="prev" title="Exercise 1: Hypothesis tests and p-values" href="ex1.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ex3.html" title="Exercise 3: Bayesian Inference"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="ex1.html" title="Exercise 1: Hypothesis tests and p-values"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="exercise-2-modified-frequentist-limits">
+<h1>Exercise 2: (Modified) Frequentist Limits<a class="headerlink" href="#exercise-2-modified-frequentist-limits" title="Permalink to this headline">¶</a></h1>
+<p>As in exercise 1, here we will also mainly use the counting experiment as statistical model in which
+the data are assumed to follow a Poisson distribution around s+b, where in the simplest case, b is a known constant
+and s is the only model parameter; we want to infer a confidence interval about the model parameter s.</p>
+<p>The Neyman construction for upper limits can be seen as a hypothesis test inversion: The point s=s0
+is included in the 95% C.L. interval if (and only if) one cannot exclude this point in a hypothesis test testing
+the null hypothesis s=s0 versus the alternative s&lt;s0 with level alpha=0.05. For a counting experiment, the test
+statstic is again n. However, now <em>small</em> values of n mean incompatibility with the null hypothesis s=s0.</p>
+<p><strong>2.a. Testing a single point s0</strong>
+Calculate the p-value for the hypothesis test with null hypothesis s=s0 versus the alternative s&lt;s0 for given b, s0, and number
+of observed events n with the method <tt class="docutils literal"><span class="pre">get_pvalue</span></tt>, using one of the <tt class="docutils literal"><span class="pre">poisson_p</span></tt> methods defined in <tt class="docutils literal"><span class="pre">common.py</span></tt>. Note that
+in contrary to searching for a positive signal, small values for n are regarded as evidence against the null hypothesis s=s0.</p>
+<p><strong>Questions</strong>:</p>
+<blockquote>
+<div><ol class="lowerroman simple">
+<li>For fixed values of b=5.2 and n=6, what are the p-values for s0=0,1,5, and 10?</li>
+<li>Which of those values for s0 is part of the 95% C.L. interval for s?</li>
+<li>Completing the implementation of <tt class="docutils literal"><span class="pre">scan_s0_pvalue</span></tt> (and calling it with appropriate arguments), find the 95% C.L. upper limit for s in case of b=5.2 and n=6. Also look at the created file &#8220;p-vs-s.pdf&#8221;, where you can read off the limit as well.</li>
+<li>Using <tt class="docutils literal"><span class="pre">scan_s0_pvalue</span></tt>: what is the frequentist 95% C.L. upper limit for a background-free counting experiment in case no events have been observed?</li>
+</ol>
+</div></blockquote>
+<p><strong>2.b. Neyman Belt</strong>
+The Neyman belt is defined in the &#8220;n vs. s&#8221; plane. For a given value of s, it contains a range of values n from nmin...nmax such that
+the probability to observe an event count n with n&gt;=nmin and n&lt;=nmax is &gt;=1-alpha where alpha is the type-I error of the hypothesis test (and
+1-alpha is the confidence level for the confidence interval). Using the belt, one can read off the upper limits for different values
+of the obersved number of events n.</p>
+<p>There is some arbitrariness picking the range nmin...nmax and a &#8220;ordering rule&#8221; is required (see lecture). For upper
+limits, one uses nmax=infinity. The method <tt class="docutils literal"><span class="pre">find_nmin_poisson(pmin,</span> <span class="pre">mu)</span></tt> finds the value for nmin such that the probability to observe
+n&gt;=nmin is at least pmin.</p>
+<p>By implementing the missing parts of <tt class="docutils literal"><span class="pre">construct_belt</span></tt>, get the plot for the Neyman belt for b=5.2 and s between 0 and 15.</p>
+<p><strong>Question</strong>: Reading the limit off the created pdf plot, what is the 95% C.L. upper limit for n=6, n=10, and n=1?</p>
+<p><strong>2.c. CLs method</strong>
+In the previous exercise 2.b., you&#8217;ve seen that if the number of observed events is very low, the resulting interval
+can be empty. This happens if the probability to observe such a low event count is low even in case of s=0. The CLs
+method prevents such statements with no sensitivity by not using the p-value but rather the quantity</p>
+<div class="math">
+<p><img src="_images/math/090f139487edb11fc02aa995092a075b26f64d78.png" alt="CL_s = \frac{p_{s+b}}{p_b}"/></p>
+</div><p>and citing as limit the value for s for which CLs = alpha (=0.05 for 95% upper limits).</p>
+<p>In this equation, <img class="math" src="_images/math/6b19dedfcf04ef0ff2f22e373e406505a1777ea8.png" alt="p_{s+b}"/> is the p-value as used in 2.a. and 2.b., while <img class="math" src="_images/math/74282f8a5402c2e7d94f260f30fc24a3599626b4.png" alt="p_b"/> is the probability
+to observe such a low event count for background only.</p>
+<p>Implement <tt class="docutils literal"><span class="pre">get_pvalue_bonly</span></tt>, which is required for the <tt class="docutils literal"><span class="pre">get_cls</span></tt> method (which is already implemented). Using
+<tt class="docutils literal"><span class="pre">scan_s0_pvalue</span></tt> as template, implement the corresponding method <tt class="docutils literal"><span class="pre">scan_s0_clsvalue</span></tt> which prints (and plots) the CLs
+value as a function of s for given b and n.</p>
+<p><strong>Question</strong>: What is the CLs 95% C.L. upper limit using the CLs method for b=5.2 and n=6, n=10, and n=1?</p>
+<p><strong>2.d. Toy MC method</strong>
+We now will implement a Monte-Carlo method for the CLs limit construction, in analogy to the toy-based p-value calculation in exercise 1. This will
+allow to use the &#8220;Bayesian average&#8221; method to include systematic uncertainties on the background b.</p>
+<p>Using the MC method entails replacing the numerical methods by toy methods. Look at the comments in the code
+how the method signature looks like. Note that some methods are very similar to the ones from exercise 1;
+be careful, however, as &#8211; in contrast to exercise 1 &#8211; the hypothesis test tests something different
+and now <em>small</em> nobs are considered a deviation from the null hypothesis s=s0.</p>
+<p>If you are stuck, remember that the file <tt class="docutils literal"><span class="pre">ex2-solutions.py</span></tt> contains a solution.</p>
+<p><strong>Questions</strong>:</p>
+<blockquote>
+<div><ol class="lowerroman simple">
+<li>Try to reproduce &#8211; within the uncertainties due to finite ntoy &#8211; the result from 2.c., namely for b=5.2, n=6 without background uncertainty.</li>
+<li>Re-evaluate the limit using a 50% uncertainty on b, i.e. delta_b=2.6. What is the (approximate) upper limit in this case?</li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">As the method is toy-based, the CLs values have limited accuracy due to the limited number of toys. Increasing the number of toys,
+however, increases the time consumption. Here, use error propagation on CLs to judge &#8220;by eye&#8221; how good the result is (see <tt class="docutils literal"><span class="pre">ex2-solutions.py</span></tt>
+for an implementation of this error propagation). Fully-fledged implementations of the CLs method adaptively increase the number of toys until a desired accuracy on the limit is reached.</p>
+</div>
+<p><strong>2.e. CLs limits for the shape model (with theta)</strong>
+For the shape model, the likelihood ratio test statistic is used in the hypothesis test to test mu=mu0 versus mu&lt;mu0 (see lecture), Apart from that,
+the implementation of the CLs method in theta is very similar to what was outlined in exercise 2.d.: A scan in mu0 is performed and for a fixed mu0,</p>
+<ol class="arabic simple">
+<li>The test statistic value</li>
+</ol>
+<blockquote>
+<div><div class="math">
+<p><img src="_images/math/32992a418bdc9d790107c95d1fcef383348174ba.png" alt="t_{\mu_0} = \log\frac{\max_{\theta\in H_0} L(\theta|d)}{\max_{\theta\in H_1} L(\theta|d)}"/></p>
+</div><p>is calculated for data, <img class="math" src="_images/math/cc79c1d9d25765ced4190203bb563977c2f7e173.png" alt="t_{\mu_0}^{\rm obs}"/>, where <img class="math" src="_images/math/f40c8273f0be47dee3d2671012eef83efae27516.png" alt="H_0"/> refers to the null hypothesis <img class="math" src="_images/math/6a155ccf866412b3a52e5b16dd74e822022d88c5.png" alt="\mu=\mu_0"/> and <img class="math" src="_images/math/d307bbd1badc9884ef8f01724a6e1cbf9e173a8b.png" alt="H_1"/> to <img class="math" src="_images/math/5e5eeeb7afcf9c422315913e0bc4bbdf0445ce19.png" alt="\mu &lt; \mu_0"/> (see lecture).</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>Toys are generated according to the &#8220;s+b&#8221; model (i.e., <img class="math" src="_images/math/54e6de9fdebb100fc31f22df9fbb9eaa7f5f3fa0.png" alt="\mu = \mu_0"/>). For each toy, the test statistic is calculated as defined in 1. The fraction of toys with <img class="math" src="_images/math/25a9f0467c8ae5c4652de6055608862d567ac01e.png" alt="t_{\mu_0} \geq t_{\mu_0}^{\rm obs}"/> is an estimate for the p-value <img class="math" src="_images/math/6b19dedfcf04ef0ff2f22e373e406505a1777ea8.png" alt="p_{s+b}"/></li>
+<li>Toys are generated according to the &#8220;b&#8221;-only model (i.e., <img class="math" src="_images/math/123fefa96947b75fd1049cccb6c6091860d6bf95.png" alt="\mu = 0"/>) to determine the p-value <img class="math" src="_images/math/77abbc18d1e98ad8d205d0e40f6e607aa444af7f.png" alt="p_{b}"/></li>
+<li>The CLs value is calculated, <img class="math" src="_images/math/ec6d58a509324de77d56a74335f11ea60e275fbe.png" alt="CL_s = \frac{p_{s+b}}{p_b}"/>, including error propagation</li>
+<li>The curve &#8220;CLs versus mu0&#8221; is fitted with an exponential in some range where CLs is about 0.05 to get the 95% C.L. upper limit, propagating the CLs-errors on the limit.</li>
+<li>If the error on the limit (from the limited number of toys) is too large, make new toys at some value mu0 and start over at 1.</li>
+</ol>
+<p>Most of these details are hidden entirely to the user of the software package, who can use it as a &#8220;black box&#8221;. Look at the comments in the code in <tt class="docutils literal"><span class="pre">ex2.py</span></tt>
+to evaluate CLs limits with theta for the shape model. The counter you see are the total number of toys (both &#8220;s+b&#8221; and &#8220;b-only&#8221;).</p>
+<p><strong>Questions</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li>What is the 95% C.L. upper limit that theta calculates for the shape model?</li>
+<li>What is the limit if you include both a 10% rate and a shape uncertainty on the background?</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You might notice that theta creates a &#8220;debuglog&#8221; text file in which you can see details of the CLs calculation as outlined above, e.g. at which value of mu the toys are performed (and how many), what the resulting CLs value (and uncertainty) is, what the result of the curve fitting is, etc. If you are interested in the dirty details, you can try to understand what theta actually does by reading this file.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ex1.html"
+                        title="previous chapter">Exercise 1: Hypothesis tests and p-values</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ex3.html"
+                        title="next chapter">Exercise 3: Bayesian Inference</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ex3.html" title="Exercise 3: Bayesian Inference"
+             >next</a></li>
+        <li class="right" >
+          <a href="ex1.html" title="Exercise 1: Hypothesis tests and p-values"
+             >previous</a> |</li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Jochen Ott.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

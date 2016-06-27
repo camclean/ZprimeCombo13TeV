@@ -1,0 +1,211 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Exercise 1: Hypothesis tests and p-values &mdash; Statistic Exercises 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Statistic Exercises 1.0 documentation" href="index.html" />
+    <link rel="next" title="Exercise 2: (Modified) Frequentist Limits" href="ex2.html" />
+    <link rel="prev" title="Technical Setup" href="setup.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ex2.html" title="Exercise 2: (Modified) Frequentist Limits"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="setup.html" title="Technical Setup"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="exercise-1-hypothesis-tests-and-p-values">
+<span id="ex1"></span><h1>Exercise 1: Hypothesis tests and p-values<a class="headerlink" href="#exercise-1-hypothesis-tests-and-p-values" title="Permalink to this headline">¶</a></h1>
+<p>This exercise will repeat common concepts of hypothesis test (p-value) from the lecture
+for a simplified experiment in high-energy physics: suppose that after some event selection, a mean background of b is expected,
+so the number of data events n follows a Poisson distribution with mean b in absence of signal (this is the null hypothesis
+of the hypothesis test). For a non-zero signal s, the number of events follows a Poisson distribution with mean s+b.</p>
+<p>Reminder: The p-value is the probability under the null hypothesis to observe data &#8220;at least as extreme&#8221; as the data actually observed.
+A real-valued test statistic is used to specify what &#8220;extreme&#8221; means. Here,
+the number of observed events itself is already good test statistic, so the p-value is the probability
+to observe at least as many events as actually observed, if the Poisson mean is b (&#8220;background-only&#8221;).</p>
+<p>Open your copy of the file <tt class="docutils literal"><span class="pre">ex1.py</span></tt> to edit it and follow the instructions on this page. If you are stuck, you can ask or look at <tt class="docutils literal"><span class="pre">ex1-solutions.py</span></tt>.</p>
+<div class="section" id="a-analytical-p-values-for-a-counting-experiment">
+<h2>1.a. Analytical p-values for a counting experiment<a class="headerlink" href="#a-analytical-p-values-for-a-counting-experiment" title="Permalink to this headline">¶</a></h2>
+<p>For different values of the background b, determine the p-value for
+an observation of at least nobs by numerical evaluation of the analytic formula.
+For b=5.2 and nobs between 5 and 20, this is implemented in the method &#8220;ex1a&#8221; in the file &#8220;ex1.py&#8221;
+(comment out the call to ex1a in the code and execute ex1.py as in Exercise 0).</p>
+<dl class="docutils">
+<dt><strong>Questions</strong>:</dt>
+<dd><ol class="first lowerroman simple">
+<li>What are the p-values and Z-values for</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>b=10000 and nobs=10000,</li>
+<li>b=10000 and nobs=10100,</li>
+<li>b=10000 and nobs=10200,</li>
+<li>b=10000 and nobs=9900?</li>
+</ul>
+</div></blockquote>
+<ol class="lowerroman simple" start="2">
+<li>Compare the results to the normal approximation</li>
+</ol>
+<div class="math">
+<p><img src="_images/math/fe22f82ec8be7191601e59fb464edbdb61175382.png" alt="Z_a = \frac{s}{\sqrt b} = \frac{n - b}{\sqrt b}"/></p>
+</div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The code for calculating and printing <img class="math" src="_images/math/a3c228e12fdd3db23b9ab9986762caf283c14d0a.png" alt="Z_a"/> is included in <tt class="docutils literal"><span class="pre">ex1.py</span></tt>, you only have to comment it in.</p>
+</div>
+<ol class="lowerroman simple" start="3">
+<li>(Bonus question): Use the likelihood-ratio formula to compute the asymptotic Z-value based on Wilks&#8217; Theorem. In general, the asymptotic Z-value is given by</li>
+</ol>
+<div class="math">
+<p><img src="_images/math/7fa0cd0aa69622b1f9f4ea6a8e5506eab91d4abe.png" alt="Z_w = \sqrt{2 \Delta \log L}"/></p>
+</div><p>where <img class="math" src="_images/math/451a7f0bb702a9cfd0807a604f77b8ee9af2a80c.png" alt="\Delta \log L"/> is the difference of log-likelihood values for the null (background-only) and the maximum of the alternative (signal+background)
+hypotheses. The likelihood function for the counting experiment is a Poisson probability around <img class="math" src="_images/math/5939829f90dea6f7a06c4c11d938031e61e5503d.png" alt="s+b"/>, where <img class="math" src="_images/math/8136a7ef6a03334a7246df9097e5bcc31ba33fd2.png" alt="b"/> is a constant and <img class="math" src="_images/math/f63abd69268c42715fddfd81fb2a326919598b17.png" alt="s \geq 0"/> is the only model
+parameter. You should be able to show that &#8211; apart from an unimportant constant term &#8211; the log-likelihood function is</p>
+<div class="math">
+<p><img src="_images/math/e80f7d2de13a63e784376a472d66ac920c9cd59d.png" alt="\log L(s | n) = n \log (s + b) - (s + b)"/></p>
+</div><p>which has a maximum for <img class="math" src="_images/math/9a0754062c9e34c3bd0203539317a34afdc70ae0.png" alt="\hat{s} = \max(0, n - b)"/>. Thus, <img class="math" src="_images/math/12b15607e1e855ab28a2abd687469e3b8f83372e.png" alt="Z_w"/> is given by</p>
+<div class="math">
+<p><img src="_images/math/57d8c5cdd1d25d3a8a686ffb36608e80e9f0c985.png" alt="Z_w = \sqrt{2\left( n\log \frac{\hat{s} + b}{b} - \hat{s}\right)}"/></p>
+</div><p>Compare the result of <img class="math" src="_images/math/12b15607e1e855ab28a2abd687469e3b8f83372e.png" alt="Z_w"/> with <img class="math" src="_images/math/a3c228e12fdd3db23b9ab9986762caf283c14d0a.png" alt="Z_a"/> and the analytical result from i. and ii.</p>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The code for calculating <img class="math" src="_images/math/12b15607e1e855ab28a2abd687469e3b8f83372e.png" alt="Z_w"/> is included in <tt class="docutils literal"><span class="pre">ex1.py</span></tt> in the method <tt class="docutils literal"><span class="pre">calc_Z_w</span></tt>. Call it from the <tt class="docutils literal"><span class="pre">nobs</span></tt> loop in the method <tt class="docutils literal"><span class="pre">ex1a</span></tt>.</p>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="b-toy-mc-method-for-p-value">
+<h2>1.b. Toy MC method for p-value<a class="headerlink" href="#b-toy-mc-method-for-p-value" title="Permalink to this headline">¶</a></h2>
+<p>As in 1.a., we compute p-values for the counting experiment, but this time using a Monte-Carlo
+method. First, become familiar with the code by commenting out the parts that generate and print/plot the generated Poisson numbers. Then, go through the
+method <tt class="docutils literal"><span class="pre">get_pvalue</span></tt> and understand how it works.</p>
+<p><strong>Question</strong>: What is the p-value and Z-value for b=100 and nobs=120? Compare the result to the normal approximation</p>
+<div class="math">
+<p><img src="_images/math/c6d93e134266643efa73d73b4a47486442e4494f.png" alt="Z_a = \frac{s}{\sqrt{b}}"/></p>
+</div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You need to set the number of toys high enough to reach a reasonable accuracy for the p-value.
+To get the error on p, either re-execute the script a number of times &#8211; this will re-calculate the p-value using a different random seed.
+A better method is to use an error estimate for p which, e.g. by using the normal approximation for the Binomial error,
+<img class="math" src="_images/math/827e3410817c031baadb4e0df8b0f93604a61945.png" alt="\Delta p = \sqrt{\frac{p(1-p)}{n_{\rm toy}}}"/></p>
+</div>
+</div>
+<div class="section" id="c-toy-mc-method-with-systematic-uncertainty">
+<h2>1.c. Toy MC method with systematic uncertainty<a class="headerlink" href="#c-toy-mc-method-with-systematic-uncertainty" title="Permalink to this headline">¶</a></h2>
+<p>Compute the p-value with the MC method for a statistical model with an uncertainty on the background with the prior-average (&#8220;hybrid&#8221;) method.</p>
+<p>As in 1.b., print (or plot) some generated toy data values. Also try a large relative uncertainty
+on the Poisson mean (e.g. 100%). You will see the code fail. Why? Fix the code as you think is appropriate.</p>
+<p><strong>Question</strong>: What is the p-value and Z-value for b=10000, delta_b=50 and nobs = 10200? Compare
+the results to the normal approximation <img class="math" src="_images/math/46241469dff7609b0cc62eb9ec665ae1512381ef.png" alt="Z_a = \frac{s}{\sqrt{b + (\Delta b)^2}}."/></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This shows that including systematic uncertainties in the p-value calculation is rather straight-forward for the Monte-Carlo method, as only
+the toy generation step needs changing, whereas an analytical solution for the same problem would be very hard.</p>
+</div>
+</div>
+<div class="section" id="d-toy-mc-method-for-shape-model-with-theta">
+<span id="ex1d"></span><h2>1.d. Toy MC method for shape model (with theta)<a class="headerlink" href="#d-toy-mc-method-for-shape-model-with-theta" title="Permalink to this headline">¶</a></h2>
+<p>We now use the &#8220;theta&#8221; program for generating the likelihood-ratio test statistic
+distribution for the shape model introduced in the lecture. Follow the instructions in the code
+to generate the likelihood ratio test statistic for a background-only toy ensemble and for data in order to calculate the
+p-value and Z-value for the signal mass of 500; if you remember the lecture, this was a 3.1sigma effect.</p>
+<p>The toy data with the 3.1sigma effect is generated with the value for the random seed of 50.
+Try out other seeds as an argument for <tt class="docutils literal"><span class="pre">build_shape_model</span></tt> (defined and documented in common.py).
+Also try different values for the other arguments to <tt class="docutils literal"><span class="pre">build_shape_model</span></tt> to include a background rate and shape uncertainty
+and re-generate test statistic distributions for those cases.</p>
+<p><strong>Question</strong>: How does the p-value change if including both, a 10% rate uncertainty on the background and the shape uncertainty?</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Exercise 1: Hypothesis tests and p-values</a><ul>
+<li><a class="reference internal" href="#a-analytical-p-values-for-a-counting-experiment">1.a. Analytical p-values for a counting experiment</a></li>
+<li><a class="reference internal" href="#b-toy-mc-method-for-p-value">1.b. Toy MC method for p-value</a></li>
+<li><a class="reference internal" href="#c-toy-mc-method-with-systematic-uncertainty">1.c. Toy MC method with systematic uncertainty</a></li>
+<li><a class="reference internal" href="#d-toy-mc-method-for-shape-model-with-theta">1.d. Toy MC method for shape model (with theta)</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="setup.html"
+                        title="previous chapter">Technical Setup</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ex2.html"
+                        title="next chapter">Exercise 2: (Modified) Frequentist Limits</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ex2.html" title="Exercise 2: (Modified) Frequentist Limits"
+             >next</a></li>
+        <li class="right" >
+          <a href="setup.html" title="Technical Setup"
+             >previous</a> |</li>
+        <li><a href="index.html">Statistic Exercises 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Jochen Ott.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

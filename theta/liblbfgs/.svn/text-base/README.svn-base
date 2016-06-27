@@ -1,0 +1,8 @@
+modifications to lbfgs:
+ * fix includes
+ * the delta stopping criteria is tested against "fabs(f' - f)", NOT the original "(f' - f) / f". This is useful
+   as f is a negative log-likelihood and we know the typical difference accuracy we want to acheive, but absolute
+   values of the original stopping criterion does not have any meaning here.
+
+TODO: use the sse optimizations
+

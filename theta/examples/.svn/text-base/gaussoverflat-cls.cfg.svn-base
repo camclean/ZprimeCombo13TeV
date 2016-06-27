@@ -1,0 +1,53 @@
+@include "gaussoverflat-include.cfg"
+
+// As test statistic for CLs, you can use a likelihood ratio produced by
+// deltanll_hypotest where the background-only-distributions fixes the signal to zero
+// and signal-plus-background either uses a flat prior.
+//
+// For another test statistic, see gaussoverflat-cls2.cfg
+deltanll = {
+    type = "deltanll_hypotest";
+    name = "deltanll";
+    minimizer = "@myminuit";
+    background-only-distribution = "@gaussoverflat.parameter-distribution";
+    signal-plus-background-distribution = "@gaussoverflat.parameter-distribution";
+    restrict_poi = "s";
+};
+
+
+// note: for complex models, minuit might have trouble converging. If the error rate
+// is too high (say > 5-10%, or it fails on data), consider using a more robust minimizer, e.g., minimizer_chain
+// with a mcmc_minimizer.
+myminuit = {
+   type = "root_minuit";
+};
+
+
+// note that the progress displayed by cls_limits is different from other methods: it does not include a
+// 'total' number as this is not known and very hard to estimate.
+main = {
+   type = "cls_limits";
+   producer = "@deltanll";
+   model = "@gaussoverflat";
+   output_database = {
+        type = "sqlite_database";
+        filename = "gaussoverflat-cls.db";
+    };
+    minimizer = "@myminuit";
+    rnd_gen = {
+        seed = 1989210211;
+    };
+    
+    // the name of the test statistic column:
+    ts_column = "deltanll__nll_diff";
+    truth_parameter = "s";
+    
+    // for debugging only. Not really needed in case everything is Ok. If something fails, please include
+    // the debug log in your bug report:
+    debuglog = "debug-gaussoverflat-cls.txt";
+};
+
+options = {
+  plugin_files = ("$THETA_DIR/lib/core-plugins.so", "$THETA_DIR/lib/root.so");
+};
+

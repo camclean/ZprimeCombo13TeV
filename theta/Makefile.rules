@@ -1,0 +1,151 @@
+# this file is included by the Makefiles of the subdirectory. These Makefiles must set $(deps) before including this
+
+# make sure first target depends on "all" which is defined in each of the subdirs
+a: all
+
+# create .bin subdirectory, if it does not exist:
+DUMMY_MKBINDIR := $(shell [ -d .bin ] || mkdir .bin)
+
+# include dependencies, make on demand. $(deps) is set by the sub-Makefiles. However, do not
+# build deps for "make clean"...
+ifeq (0, $(words $(findstring $(MAKECMDGOALS), clean clean-subdir)))
+  -include $(deps)
+endif
+
+# Find out build architecture (not host architecture), i.e., the architecture for which to compile.
+# This could be 32 bit for a 64 bit system (e.g., if running 32-bit CMS software on a 64-bit machine).
+# The variable BUILD_ARCH will be 'x86_64' for 64 bit systems, 'x86_32' for 32-bit systems and
+# empty for non-recognized systems.
+BUILD_ARCH:=
+ifneq ($(shell :|$(CXX) -dM -E - | grep __amd64__),)
+   BUILD_ARCH:=x86_64
+else
+   ifneq ($(shell :|$(CXX) -dM -E - | grep __i386__),)
+      BUILD_ARCH:=x86_32
+   endif
+endif
+
+
+PLATFORM:=$(shell uname)
+
+ifneq ($(shell echo -n $$CMSSW_BASE),)
+   HAVE_SCRAM:=yes
+endif
+
+ifneq ($(OPTIONS_BOOSTDIR),)
+   BOOST_INCLUDE := -I$(OPTIONS_BOOSTDIR)/include
+   BOOST_LIBS := -L$(OPTIONS_BOOSTDIR)/lib -lboost_system -lboost_regex -lboost_program_options -lboost_iostreams
+# if available, use dependencies from CMSSW:
+else
+   ifeq ($(HAVE_SCRAM),yes)
+      scram = $(shell cd $$CMSSW_BASE; scram tool tag $(1) $(2))
+      BOOST_INCLUDE := -I$(call scram,boost,INCLUDE)
+      BOOST_LIBLIST := $(call scram,boost,LIB) $(call scram,boost_filesystem,LIB) $(call scram,boost_program_options,LIB) $(call scram,boost_regex,LIB)
+      BOOST_LIBS := -L$(call scram,boost,LIBDIR) $(patsubst %,-l%,$(BOOST_LIBLIST)) -lboost_iostreams
+   # otherwise: assume dependencies are installed system-wide and no paths have to be set explicitely:
+   else
+      BOOST_INCLUDE:=
+      #on some systems, boost libraries have a "-mt" suffix. This is a dirty hack. If you know better, tell me:
+      BS:=
+      ifeq ($(shell if test -e /usr/lib/libboost_system-mt.so -o -e /usr/lib64/libboost_system-mt.so; then echo -n A; fi)$,A)
+         BS:=-mt
+      endif
+      BOOST_LIBS := -lboost_filesystem$(BS) -lboost_regex$(BS) -lboost_program_options$(BS) -lboost_thread$(BS) -lboost_system$(BS) -lboost_iostreams$(BS)
+   endif
+endif
+
+ifneq ($(OPTIONS_SQLITEDIR),)
+   SQLITE_LIBS := -lsqlite3 -L$(OPTIONS_SQLITEDIR)/lib
+   SQLITE_INCLUDE := -I$(OPTIONS_SQLITEDIR)/include
+else
+   ifeq ($(HAVE_SCRAM),yes)
+      SQLITE_LIBLIST := $(call scram,sqlite,LIB)
+      SQLITE_LIBS := $(patsubst %,-l%,$(SQLITE_LIBLIST)) -L$(call scram,sqlite,LIBDIR)
+      SQLITE_INCLUDE := -I$(call scram,sqlite,INCLUDE)
+   else
+      SQLITE_INCLUDE:=
+      SQLITE_LIBS := -lsqlite3
+   endif
+endif
+
+#check options for consistentcy:
+ifneq ($(PLATFORM),Linux)
+   ifneq ($(OPTIONS_GENERIC_ARCH),yes)
+       DUMMY := $(warning platform is not Linux. Setting OPTIONS_GENERIC_ARCH to yes)
+       OPTIONS_GENERIC_ARCH:=yes
+   endif
+endif
+
+
+ifneq ($(BUILD_ARCH),x86_64)
+   ifneq ($(OPTIONS_GENERIC_ARCH),yes)
+       DUMMY := $(warning build machine architecture is not x86_64, setting OPTIONS_GENERIC_ARCH to yes)
+       OPTIONS_GENERIC_ARCH:=yes
+   endif
+endif
+
+ifeq ($(OPTIONS_GENERIC_ARCH),yes)
+  OPTIONS_USE_AMDLIBM:=no
+endif
+
+
+DEFINES :=
+INCLUDES := -I.. $(BOOST_INCLUDE) $(SQLITE_INCLUDE)
+EXTRA_COMPILE :=
+LIBS := -ltheta -ldl -lconfig
+
+ifeq ($(OPTIONS_GENERIC_ARCH),yes)
+   DEFINES += -DGENERIC_ARCH
+endif
+
+ifeq ($(OPTIONS_USE_AMDLIBM),yes)
+    LIBS += -lamdlibm
+    DEFINES += -DUSE_AMDLIBM
+endif
+
+ifeq ($(OPTIONS_TIMER),yes)
+    DEFINES += -DUSE_TIMER
+    LIBS += -lboost_timer$(BS)
+endif
+
+FLAGSC := -g -Wall -fPIC $(INCLUDES) $(DEFINES) $(OPTIONS_CFLAGS)
+# -Wno-unused-local-typedefs to suppress a *lot* of g++ warnings in certain combinations with boost
+FLAGSCPP := $(FLAGSC) -Wnon-virtual-dtor -Woverloaded-virtual -Wsign-promo -Wno-unused-local-typedefs
+
+ifneq ($(OPTIONS_DEBUG),yes)
+    FLAGSC += -O3
+    FLAGSCPP += -O3
+endif
+
+#lazy evaluation because of $@, $+.
+COMPILE = echo creating $@; $(CXX) -c $(EXTRA_COMPILE)
+LINK_EXE = echo linking $@; $(CXX) -o $@ $+ $(OPTIONS_LDFLAGS_EXE) -Wl,-R,'$$ORIGIN/../lib' -rdynamic -L../lib $(LIBS) $(SQLITE_LIBS) $(BOOST_LIBS)
+LINK_EXE_NOLIBS = echo linking $@; $(CXX) -o $@ $+ $(OPTIONS_LDFLAGS_EXE) -Wl,-R,'$$ORIGIN/../lib' -rdynamic -L../lib
+LINK_SO = echo linking $@; $(CXX) -o $@ $+ $(OPTIONS_LDFLAGS_SO) -Wl,-R,'$$ORIGIN/../lib' -shared -rdynamic -L../lib $(BOOST_LIBS)
+
+.bin/%.o: %.cpp
+	@$(COMPILE) $(FLAGSCPP) -o $@ $<
+
+.bin/%.o: %.cxx
+	@$(COMPILE) $(FLAGSCPP) -o $@ $<
+
+.bin/%.o: %.c
+	@$(COMPILE) $(FLAGSC) -x c -o $@ $<
+
+
+.bin/%.d: %.cpp
+	@echo creating $@; $(CXX) $(FLAGSCPP) $(EXTRA_COMPILE) -MM -MT '$(patsubst %.cpp,.bin/%.o,$<)' $< > $@
+
+.bin/%.d: %.cxx
+	@echo creating $@; $(CXX) $(FLAGSCPP) $(EXTRA_COMPILE) -MM -MT '$(patsubst %.cxx,.bin/%.o,$<)' $< > $@
+
+.bin/%.d: %.c
+	@echo creating $@; $(CXX) $(FLAGSC) $(EXTRA_COMPILE) -x c -MM -MT '$(patsubst %.c,.bin/%.o,$<)' $< > $@
+
+
+#make clean rule depend on subdir-specific:
+clean: clean-subdir
+	@rm -rf .bin
+
+.PHONY: clean clean-subdir
+

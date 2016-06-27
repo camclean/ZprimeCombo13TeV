@@ -1,0 +1,119 @@
+parameters = ("mu_s", "mu_b", "tau");
+
+observables = {
+   mass = {
+      range = (0.0, 500.0);
+      nbins = 100;
+   };
+   
+   sb = {
+      range = (0.0, 1.0);
+      nbins = 1;
+   };
+};
+
+t_sb_1 = {
+   type = "fixed_poly";
+   observable = "sb";
+   normalize_to = 1.0;
+   coefficients = [1.0];
+};
+
+t_sb_1_scaled = {
+   type = "fixed_poly";
+   observable = "sb";
+   normalize_to = 10.0;
+   coefficients = [1.0];
+};
+
+t_s_1 = {
+   type = "root_histogram";
+   filename = "results/templates.root";
+   histoname = "bkg";
+   normalize_to = 1.0;
+};
+
+t_s_2 = {
+   type = "root_histogram";
+   filename = "results/templates.root";
+   histoname = "signal";
+   normalize_to = 1.0;
+};
+
+mu_b-flat = {
+   type = "flat_distribution";
+   mu_b = {
+      range = (0.0, "inf");
+      fix-sample-value = 20.0;
+      width = 2.0;
+    };
+};
+
+mu_s-flat = {
+   type = "flat_distribution";
+   mu_s = {
+      range = (0.0, "inf");
+      fix-sample-value = 10.0;
+      width = 1.0;
+   };
+};
+
+tau-gauss = {
+   type = "gauss";
+   parameter = "tau";
+   mean = 10.0;
+   width = 2.0;
+   range = (0.0, "inf");
+};
+
+example_model_syst = {
+   mass = {
+      background = {
+         coefficient-function = { type = "mult"; parameters = ("mu_b"); };
+         histogram = "@t_s_1";
+      };
+      signal = {
+         coefficient-function = { type = "mult"; parameters = ("mu_s"); };
+         histogram = "@t_s_2";
+      };
+   };
+   
+   sb = {
+      background = {
+         coefficient-function = { type = "mult"; parameters = ("mu_b", "tau"); };
+         histogram = "@t_sb_1";
+      };
+   };
+   
+   parameter-distribution = {
+       type = "product_distribution";
+       distributions = ("@mu_b-flat", "@mu_s-flat", "@tau-gauss");
+   };
+};
+
+//also include the example model w/o syst for fitting ...
+example_model = {
+   mass = {
+      background = {
+         coefficient-function = { type = "mult"; parameters = ("mu_b"); };
+         histogram = "@t_s_1";
+      };
+      signal = {
+         coefficient-function = { type = "mult"; parameters = ("mu_s"); };
+         histogram = "@t_s_2";
+      };
+   };
+
+   sb = {
+      background = {
+         coefficient-function = { type = "mult"; parameters = ("mu_b"); };
+         histogram = "@t_sb_1_scaled";
+      };
+   };
+      
+   parameter-distribution = {
+       type = "product_distribution";
+       distributions = ("@mu_b-flat", "@mu_s-flat");
+   };
+};
+
