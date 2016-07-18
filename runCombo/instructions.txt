@@ -1,0 +1,17 @@
+Instructions to run the limit jobs simultaneously for all mass points:
+
+1. Set RUN_THETA to False in the combination.py file
+2. run the command:
+   > utils2/theta-auto.py combination.py
+3. submit the theta jobs simultaneously:
+   > bash
+   > for file in `ls combination/*.cfg`; do `/uscms_data/d3/pilot/newTheta/theta/bin/theta ${file} --nowarn` & done
+4. wait for the jobs to finish
+5. copy the files to the cache directory so theta knows about them:
+   > mkdir combination/cache
+   > cp *.db combination/cache/.
+   > cp combination/*.cfg combination/cache/.
+6. change RUN_THETA to True in combination.py
+7. run theta again to produce the output limit results:
+   > utils2/theta-auto.py combination.py
+8. DONE!
