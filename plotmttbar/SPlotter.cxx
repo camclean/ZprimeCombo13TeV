@@ -880,11 +880,13 @@ void SPlotter::DrawPoissonCoverage(SHist* data, int lastbin)
   TH1D* dh = (TH1D*) data->GetHist();
   int np = 0;
   bool first = false;
+  TString name = dh->GetName();
   for (int i=1; i<dh->GetNbinsX()+1; ++i){
     int N = dh->GetBinContent(i);
     double L =  (N==0) ? 0  : (ROOT::Math::gamma_quantile(alpha/2,N,1.));
     double U =  ROOT::Math::gamma_quantile_c(alpha/2,N+1,1) ;
-    if (N>0) first = true;
+    if (N>0) first = true; 
+    if (name=="muo_T1B0_L1chi2lo_mtt" && i==5) first = true;
     if (first && N<5 && i<=lastbin){
       ge->SetPoint(np,dh->GetXaxis()->GetBinCenter(i), N);
       ge->SetPointEYlow(np, N-L);
@@ -912,26 +914,50 @@ void SPlotter::DrawPoissonCoverageInRatio(vector<SHist*> hists)
   TGraphAsymmErrors* ge = new TGraphAsymmErrors();
 
   TH1D* dh = (TH1D*) sdata->GetHist();
+  TString name = dh->GetName();
   int np = 0;
   bool first = false;
+  bool print = false;
   for (int i=1; i<dh->GetNbinsX()+1; ++i){
     int N = dh->GetBinContent(i);
     if (N>0) first = true;
-    if (N!=0) continue;
+    if (name=="muo_T1B0_L1chi2lo_mtt" && i==5) first = true; 
+    if (name=="muo_T1B0_L1chi2lo_mtt" && i==7) print = true; 
+    if (N>=5) continue;
     if (!first) continue;
 
     double pred = mc->GetBinContent(i);
     if (pred==0) continue;
 
     double U =  ROOT::Math::gamma_quantile_c(alpha/2,N+1,1);
-  
+    double rU = U / mc->GetBinContent(i);    
+    double L = 0.; 
     double rL = 0.;
-    double rU = U / mc->GetBinContent(i);
+    if (N>0){ 
+      L = ROOT::Math::gamma_quantile(alpha/2,N,1.);
+      rL = L / mc->GetBinContent(i);
+    }
+
+    if (print){
+      cout << "bin = " << i << " " << dh->GetXaxis()->GetBinLowEdge(i) << " < mtt < " << dh->GetXaxis()->GetBinUpEdge(i) << endl;
+      cout << "N = " << N << endl;
+      cout << "U = " << U << endl;
+      cout << "L = " << L << endl;
+      cout << "mc bin content = " << mc->GetBinContent(i) << endl;
+      cout << "rU = " << rU << endl;
+      cout << "rL = " << rL << endl;
+    }
 
     if (first){
-      ge->SetPoint(np,dh->GetXaxis()->GetBinCenter(i), N);
-      ge->SetPointEYlow(np, rL);
-      ge->SetPointEYhigh(np, rU);
+      double r = N / mc->GetBinContent(i);
+      ge->SetPoint(np,dh->GetXaxis()->GetBinCenter(i), r);
+      if (print){
+        cout << "setting point to " << dh->GetXaxis()->GetBinCenter(i) << " and " << r << endl;
+        cout << "setting point error to " << rL << " and " << rU << endl;
+        print = false;
+      }
+      ge->SetPointEYlow(np, r-rL);
+      ge->SetPointEYhigh(np, rU-r);
       ++np;
     }
   }
@@ -1369,7 +1395,7 @@ vector<SHist*> SPlotter::CalcRatios(vector<SHist*> hists)
 
     // set error to 0 for empty bins
 //    if (bIgnoreEmptyBins && val<0.05 && ibin<15){
-    if (bIgnoreEmptyBins && val<0.05){
+    if (bIgnoreEmptyBins && val<0.005){
       //cout << "no MC in bin " << ibin << " lower = " << denom->GetXaxis()->GetBinLowEdge(ibin) << " upper = " << denom->GetXaxis()->GetBinUpEdge(ibin) << endl;
       MCstat->SetBinError(ibin, 0.);
       MCtot->SetBinError(ibin, 0.);
@@ -1653,9 +1679,9 @@ void SPlotter::DrawLegend(vector<SHist*> hists)
   cout << "warning: plotting legend - check if ordering is ok (by hand, line 1530 in SPlotter!" << endl;
   //Int_t j[] = {0, 4, 1, 2, 3, 5, 6}; // dilepton
   //Int_t j[] = {0, 2, 1, 3, 4}; // CMSTT
-  //Int_t j[] = {0, 7, 1, 2, 3, 4, 5, 6, 8, 9}; // l+jets case
+  Int_t j[] = {0, 7, 1, 2, 3, 4, 5, 6, 8, 9}; // l+jets case
 
-  Int_t j[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}; // general case
+  //Int_t j[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}; // general case
 
 
   for (Int_t i=0; i<narr; ++i){
@@ -1717,9 +1743,9 @@ void SPlotter::DrawLegend(vector<SHist*> hists)
   TString name = hists[0]->GetName();
   cout << "name = " << name << endl;
   TString infotext;
-  if (name.Contains("ele_t0b0", TString::kIgnoreCase)) infotext = "e+jets; 0 t tag, 0 b tag";
-  if (name.Contains("ele_t0b1", TString::kIgnoreCase)) infotext = "e+jets; 0 t tag, 1 b tag";
-  if (name.Contains("ele_t1b0", TString::kIgnoreCase)) infotext = "e+jets; 1 t tag";
+  if (name.Contains("ele_t0b0", TString::kIgnoreCase)) infotext = "e+jets, 0 t tag, 0 b tag";
+  if (name.Contains("ele_t0b1", TString::kIgnoreCase)) infotext = "e+jets, 0 t tag, 1 b tag";
+  if (name.Contains("ele_t1b0", TString::kIgnoreCase)) infotext = "e+jets, 1 t tag";
 
   if (name.Contains("muo_t0b0", TString::kIgnoreCase)) infotext = "#mu+jets, 0 t tag, 0 b tag";
   if (name.Contains("muo_t0b1", TString::kIgnoreCase)) infotext = "#mu+jets, 0 t tag, 1 b tag";
@@ -1740,12 +1766,12 @@ void SPlotter::DrawLegend(vector<SHist*> hists)
   if (name == "btag4") infotext = "|#Deltay| > 1.0; 1 b tag";
   if (name == "btag5") infotext = "|#Deltay| > 1.0; 2 b tag";
 
-  if (name == "httbtag0") infotext = "H_{T} > 800 GeV; 0 b tag (low-mass)";
-  if (name == "httbtag1") infotext = "H_{T} > 800 GeV; 1 b tag (low-mass)";
-  if (name == "httbtag2") infotext = "H_{T} > 800 GeV; 2 b tag (low-mass)";
-  if (name == "mjhttbtag0") infotext = "H_{T} < 800 GeV; 0 b tag (low-mass)";
-  if (name == "mjhttbtag1") infotext = "H_{T} < 800 GeV; 1 b tag (low-mass)";
-  if (name == "mjhttbtag2") infotext = "H_{T} < 800 GeV; 2 b tag (low-mass)";
+  if (name == "httbtag0") infotext = "H_{T} > 800 GeV, 0 b tag (low-mass)";
+  if (name == "httbtag1") infotext = "H_{T} > 800 GeV, 1 b tag (low-mass)";
+  if (name == "httbtag2") infotext = "H_{T} > 800 GeV, 2 b tag (low-mass)";
+  if (name == "mjhttbtag0") infotext = "H_{T} < 800 GeV, 0 b tag (low-mass)";
+  if (name == "mjhttbtag1") infotext = "H_{T} < 800 GeV, 1 b tag (low-mass)";
+  if (name == "mjhttbtag2") infotext = "H_{T} < 800 GeV, 2 b tag (low-mass)";
 
   TLatex *text1 = new TLatex(3.5, 24, infotext);
   text1->SetNDC();

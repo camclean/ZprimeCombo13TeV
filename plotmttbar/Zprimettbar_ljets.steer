@@ -7,7 +7,7 @@ SteerPlotter(){
   fSampleNames   = "  Data,     W+light,          W+b   , single-top,   Z+jets, diboson,  t #bar t,  Z'_2.0_TeV_1%_width ";
   fSamplesWeight = "  1.0 ,        0.98,         0.98   ,      0.94 ,    0.81 ,    0.94,      0.94,        1.00 "; 
   fSamplesUnc    = "  0.0 ,        0.15,         0.23   ,      0.25 ,    0.31 ,    0.20,      0.12,         0.0 ";
-  fHistColors    = "  1   ,         413,          413   ,       413 ,     413 ,     413,       629,           1 ";
+  fHistColors    = "  1   ,         866,          866   ,       866 ,     866 ,     866,       808,           1 "; //413, 628
   fHistMarkers   = " 20   ,           0,            0   ,         0 ,       0 ,       0,         0,          -1 ";
 
   fSamplesToStack = "wjetL, wjetH, sitop, zjets, dibos, ttbar"; // the names of chains which you would like to stack (same as in input filenames)

@@ -399,14 +399,22 @@ TH1* FileParser::Rebin(TH1* hist, TString dirname)
   TString name(hist->GetName());
   TString title(hist->GetTitle());
 
-
   if (name.Contains("mtt")) {
     //  TH1* rebinned = hist->Rebin(2);
     TH1* rebinned = hist->Rebin(2);
     rebinned->GetXaxis()->SetRangeUser(0,3500);
     rebinned->SetTitle("M_{t#bart} [GeV]");
+
+    if (name.BeginsWith("ele_T1B0_L1chi2lo_mtt")){
+      //cout << "e+jets, 1top, Name = " << name << endl;
+      //rebinned->SetBinContent(32,0);
+      //rebinned->SetBinContent(33,0);
+      //rebinned->SetBinContent(34,0);
+      //rebinned->SetBinContent(35,0);
+    }
     return rebinned;
   }
+
 
   if (name == "Pt_toplep_rec") {
     TH1* rebinned = hist->Rebin(2);
@@ -516,6 +524,7 @@ TH1* FileParser::Rebin(TH1* hist, TString dirname)
     //TH1* rebinned = hist->Rebin(30, name, binsx);   
     TH1* rebinned = hist->Rebin(2);
 
+    cout << "rebinned e+jets mttbar hist! Nbins = " << rebinned->GetNbinsX() << endl;
     rebinned->SetBinContent(30, 0);
     rebinned->SetBinContent(31, 0);
     rebinned->SetBinContent(32, 0);
@@ -573,15 +582,22 @@ TH1* FileParser::Rebin(TH1* hist, TString dirname)
         rebinned->SetBinError(i, 0.);        
       }
     }    
-
+    if (name.Contains("btag3") && name.Contains("qcd")){
+      rebinned->SetBinContent(11, 0.);
+      rebinned->SetBinError(11, 0.);
+    }   
     if (name.Contains("btag4") && name.Contains("qcd")){
       rebinned->SetBinContent(43, 0.101);
       rebinned->SetBinError(43, 0.101);
+      rebinned->SetBinContent(12, 0.);
+      rebinned->SetBinError(12, 0.);      
     }
     if (name.Contains("btag5") && name.Contains("qcd")){
       rebinned->SetBinContent(28, 0.1205);
       rebinned->SetBinError(28, 0.1044);
-    }    
+    }   
+
+    return rebinned;     
 
     return rebinned;
 

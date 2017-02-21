@@ -6,7 +6,7 @@ SteerPlotter(){
   fSampleNames   = "  Data,     W+light,     W+c,       W+b   , single-top,   Z+jets, diboson,  t #bar t,  Z'_2.0_TeV_1%_width ";
   fSamplesWeight = "  1.0 ,         1.0,     1.0,       1.0   ,      1.00 ,    1.00 ,    1.00,      1.00,        1.00 "; // W+jets scaled down by q2 scale uncertainty
   fSamplesUnc    = "  0.0 ,       0.058,    0.30,      0.23   ,      0.25 ,    0.31 ,    0.20,     0.035,         0.0 ";
-  fHistColors    = "  1   ,         413,     413,       413   ,       413 ,     413 ,     413,       629,           1 ";
+  fHistColors    = "  1   ,         413,     413,       413   ,       413 ,     413 ,     413,       810,           1 "; //628
   fHistMarkers   = " 20   ,           0,       0,         0   ,         0 ,       0 ,       0,         0,          -1 ";
 
   // fInputFiles    = "  DATA,   wlight,     wc,     wb,   singletop,  zlight, diboson,     ttbar, Zprime2000";
