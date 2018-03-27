@@ -1699,7 +1699,7 @@ void SPlotter::DrawLegend(vector<SHist*> hists)
     if (legtitle=="W+light") continue; //legtitle = "W(#rightarrow l #nu)+jets";
     if (legtitle=="W+c") continue;
     if (legtitle=="W+b") continue;
-    if (legtitle=="single-top") legtitle = "Others";
+    if (legtitle=="single-top") legtitle = "Other";
     if (legtitle=="Z+jets") continue;
     if (legtitle=="diboson") continue;
 
