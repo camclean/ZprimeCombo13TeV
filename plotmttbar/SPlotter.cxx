@@ -532,6 +532,9 @@ void SPlotter::ProcessAndPlot(std::vector<TObjArray*> histarr)
   TString psname = m_ps_name;
   TString current_dir = "";
 
+  TString namebase = psname;
+  namebase.ReplaceAll( ".ps", "" );
+
   // loop over all histograms and plot them!
   int iplot = 1;
   bool bleg = true;
@@ -583,7 +586,7 @@ void SPlotter::ProcessAndPlot(std::vector<TObjArray*> histarr)
       OpenPostscript(dir, hname);
       current_dir = dir;
       iplot = 1;
-      bleg = true;          
+      bleg = true;
     }
 
     // cosmetics
@@ -618,6 +621,8 @@ void SPlotter::ProcessAndPlot(std::vector<TObjArray*> histarr)
       	if (bZScoreInRatio) PlotZScore(hists, ipad);
       	else PlotRatios(hists, ipad);
       }
+
+      m_can->SaveAs( namebase + "_" + hname + ".root");
     }
 
     ++iplot;
@@ -627,6 +632,8 @@ void SPlotter::ProcessAndPlot(std::vector<TObjArray*> histarr)
   if (!bSingleEPS) DrawPageNum();
 
   if (need_update) m_can->Update();
+
+  
   Cleanup(); 
   
 }
